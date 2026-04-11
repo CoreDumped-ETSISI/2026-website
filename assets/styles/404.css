@@ -1,0 +1,46 @@
+:root {
+    --bg-colour: #121212;
+    --text-colour: #e0e0e0;
+    --url-colour: #4da3ff;
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --bg-colour: #f7f7f7;
+        --text-colour: #333;
+        --url-colour: #007acc;
+    }
+}
+
+body {
+    margin: 0;
+    font-family: system-ui;
+    background: var(--bg-colour);
+    color: var(--text-colour);
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+}
+
+div {
+    padding: 2rem;
+}
+
+h1 {
+    font-size: 4rem;
+}
+
+p {
+    font-size: 1.1rem;
+}
+
+a {
+    color: var(--url-colour);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+a:hover {
+    text-decoration: underline;
+}

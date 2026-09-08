@@ -1,0 +1,13 @@
+services:
+  website:
+    image: alpine:latest
+    restart: on-failure:3
+
+    expose:
+      - 80/tcp
+
+    volumes:
+      - ${PWD}/docs:/website:ro
+      - ${PWD}/entrypoint.sh:/entrypoint.sh:ro
+
+    entrypoint: ["/bin/sh", "/entrypoint.sh"]

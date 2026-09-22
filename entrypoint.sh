@@ -1,6 +1,5 @@
 #!/bin/sh
 
-apk update
-apk add darkhttpd
+apk add --no-cache darkhttpd
 
 darkhttpd /website

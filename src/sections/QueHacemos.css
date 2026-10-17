@@ -1,0 +1,155 @@
+/* src/sections/QueHacemos.css */
+
+.que-hacemos {
+  box-sizing: border-box;
+  height: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 clamp(56px, 6vw, 96px) 0 clamp(24px, 5vw, 80px);
+  display: grid;
+  grid-template-columns: 1fr 1.25fr;
+  align-items: center;
+  gap: clamp(24px, 4vw, 56px);
+  color: #ffffff;
+}
+
+.que-hacemos__title {
+  margin: 0 0 0.5em;
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.que-hacemos__body {
+  margin: 0 0 1.15em;
+  font-size: clamp(1rem, 1.4vw, 1.25rem);
+  line-height: 1.6;
+  max-width: 34em;
+}
+
+.que-hacemos__body--last {
+  margin-bottom: 0;
+}
+
+.que-hacemos__photos {
+  position: relative;
+  height: min(67vh, 600px);
+}
+
+.purple-photo {
+  position: absolute;
+  margin: 0;
+  padding: 8px;
+  background: #ffffff;
+  border-radius: 6px;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.3);
+}
+
+.purple-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+.purple-photo--main {
+  top: 0;
+  left: 0;
+  width: 57%;
+  aspect-ratio: 744 / 524;
+  --rot: -2deg;
+  z-index: 2;
+}
+
+.purple-photo--python {
+  right: 0;
+  top: 1%;
+  width: 31%;
+  aspect-ratio: 634 / 885;
+  --rot: 3deg;
+  z-index: 1;
+}
+
+.purple-photo--scratch {
+  left: 16%;
+  bottom: 0;
+  width: 28%;
+  aspect-ratio: 678 / 928;
+  --rot: -4deg;
+  z-index: 3;
+}
+
+.purple-photo--c {
+  right: 17%;
+  bottom: 0;
+  width: 27%;
+  aspect-ratio: 595 / 1064;
+  --rot: 4deg;
+  z-index: 4;
+}
+
+.que-hacemos .reveal {
+  opacity: 0;
+  transform: translateY(30px) rotate(var(--rot, 0deg));
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.screen--active .que-hacemos .reveal {
+  opacity: 1;
+  transform: translateY(0) rotate(var(--rot, 0deg));
+  transition-delay: var(--delay, 0s);
+}
+
+@media (max-width: 800px) {
+  .que-hacemos {
+    grid-template-columns: 1fr;
+    align-content: center;
+    gap: 18px;
+    padding: 0 48px 0 24px;
+  }
+
+  .que-hacemos__title {
+    margin-bottom: 0.35em;
+  }
+
+  .que-hacemos__body {
+    margin-bottom: 0.75em;
+    line-height: 1.45;
+  }
+
+  .que-hacemos__photos {
+    height: 34vh;
+  }
+
+  .purple-photo {
+    padding: 6px;
+  }
+
+  .purple-photo--main {
+    width: 51%;
+    top: 0;
+    left: 0;
+  }
+
+  .purple-photo--python {
+    width: 25%;
+    top: 0;
+    right: 0;
+  }
+
+  .purple-photo--scratch {
+    width: 24%;
+    left: 26%;
+    bottom: 0;
+  }
+
+  .purple-photo--c {
+    width: 23%;
+    right: 21%;
+    bottom: 0;
+  }
+}

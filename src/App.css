@@ -1,0 +1,147 @@
+/* src/App.css */
+
+/* Ventana fija: el scroll nativo está desactivado y la página se mueve
+   sección a sección con un transform. */
+.viewport {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+}
+
+.page {
+  position: relative;
+  width: 100%;
+  height: 400vh;
+  transition: transform 0.9s cubic-bezier(0.77, 0, 0.175, 1);
+  will-change: transform;
+}
+
+/* Indicador de sección (puntos a la derecha) */
+.dots {
+  position: fixed;
+  top: 50%;
+  right: 24px;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  z-index: 10;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+  --dot-color: #000000;
+}
+
+.dots--visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.dots--light {
+  --dot-color: #ffffff;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  border: 2px solid var(--dot-color);
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+
+.dot--active {
+  background: var(--dot-color);
+  transform: scale(1.25);
+}
+
+/* Gradiente: mide 4 pantallas (400vh), una por color.
+   Cada color tiene una zona sólida centrada en su pantalla y
+   transiciones largas y suaves entre ellos. */
+.gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 400vh;
+  z-index: 0;
+  background: linear-gradient(
+    to bottom,
+    #ffffff 0%,
+    #ffffff 18%,   /* pantalla 1: blanco  (0–72vh sólido)    */
+    #5fb030 32%,
+    #5fb030 43%,   /* pantalla 2: verde   (128–172vh sólido) */
+    #800080 57%,
+    #800080 68%,   /* pantalla 3: morado  (228–272vh sólido) */
+    #000000 82%,
+    #000000 100%   /* pantalla 4: negro   (328–400vh sólido) */
+  );
+
+  /* Estado inicial: el gradiente completo comprimido en una sola pantalla
+     y oculto. */
+  transform-origin: top center;
+  transform: scaleY(0.25);
+  clip-path: inset(0 0 100% 0);
+
+  /* Una sola animación continua (2.2s):
+     1) 0–1s: se descubre de arriba a abajo
+     2) 1–2.2s: se estira hasta que el blanco ocupa toda la pantalla
+     Antes eran dos animaciones: la primera frenaba hasta pararse (ease-out)
+     y la segunda arrancaba desde parado (ease-in-out), de ahí la pausa. */
+  animation: introGradient 2.2s forwards;
+}
+
+@keyframes introGradient {
+  0% {
+    clip-path: inset(0 0 100% 0);
+    transform: scaleY(0.25);
+    /* Acelera hasta el final del revelado, sin frenar */
+    animation-timing-function: cubic-bezier(0.3, 0.3, 0.7, 0.55);
+  }
+  45.45% {
+    clip-path: inset(0 0 0 0);
+    transform: scaleY(0.25);
+    /* Arranca con la misma velocidad con la que terminó el revelado
+       y frena suavemente al final */
+    animation-timing-function: cubic-bezier(0.25, 0.15, 0.3, 1);
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+    transform: scaleY(1);
+  }
+}
+
+/* Cada sección ocupa exactamente una pantalla */
+.screen {
+  position: relative;
+  z-index: 1;
+  height: 100vh;
+}
+
+/* Logo: oculto durante la intro; aparece centrado en la pantalla blanca
+   cuando el gradiente termina de expandirse.
+   Blanco sólido 0–72vh → logo centrado en 50vh con 30vh de alto (35–65vh). */
+.logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.95);
+  height: 30vh;
+  max-width: 80vw;
+  object-fit: contain;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.logo--visible {
+  animation: logoIn 0.8s ease-out forwards;
+}
+
+@keyframes logoIn {
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}

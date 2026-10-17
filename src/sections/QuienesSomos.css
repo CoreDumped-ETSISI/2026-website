@@ -1,0 +1,166 @@
+/* src/sections/QuienesSomos.css */
+
+.quienes {
+  box-sizing: border-box;
+  height: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+  /* margen lateral extra a la derecha para no chocar con los puntos de navegación */
+  padding: 0 clamp(56px, 6vw, 96px) 0 clamp(24px, 5vw, 80px);
+  display: grid;
+  grid-template-columns: 1fr 1.25fr;
+  align-items: center;
+  gap: clamp(24px, 4vw, 56px);
+  color: #000000;
+}
+
+/* ---------- Texto ---------- */
+
+.quienes__title {
+  margin: 0 0 0.5em;
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.quienes__body {
+  margin: 0 0 1.5em;
+  font-size: clamp(1rem, 1.4vw, 1.25rem);
+  line-height: 1.6;
+  max-width: 34em;
+}
+
+.quienes__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.quienes__tags li {
+  padding: 0.45em 1em;
+  border: 2px solid #000000;
+  border-radius: 999px;
+  font-size: clamp(0.85rem, 1.1vw, 1rem);
+  font-weight: 600;
+}
+
+/* ---------- Fotos ---------- */
+
+.quienes__photos {
+  position: relative;
+  height: min(65vh, 580px);
+}
+
+.photo {
+  position: absolute;
+  margin: 0;
+  padding: 8px;
+  background: #ffffff;
+  border-radius: 6px;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.22);
+}
+
+.photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+.photo--main {
+  top: 0;
+  left: 0;
+  width: 66%;
+  aspect-ratio: 1403 / 990;
+  --rot: -2deg;
+  z-index: 2;
+}
+
+.photo--secondary {
+  right: 0;
+  top: 6%;
+  width: 42%;
+  aspect-ratio: 1406 / 1249;
+  --rot: 3.5deg;
+  z-index: 1;
+}
+
+.photo--tertiary {
+  left: 18%;
+  bottom: 0;
+  width: 54%;
+  aspect-ratio: 16 / 9;
+  --rot: -3deg;
+  z-index: 3;
+}
+
+/* ---------- Animación de entrada al llegar a la sección ---------- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px) rotate(var(--rot, 0deg));
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.screen--active .reveal {
+  opacity: 1;
+  transform: translateY(0) rotate(var(--rot, 0deg));
+  transition-delay: var(--delay, 0s);
+}
+
+/* ---------- Móvil ---------- */
+
+@media (max-width: 800px) {
+  .quienes {
+    grid-template-columns: 1fr;
+    align-content: center;
+    gap: 24px;
+    padding: 0 48px 0 24px;
+  }
+
+  .quienes__title {
+    margin-bottom: 0.35em;
+  }
+
+  .quienes__body {
+    margin-bottom: 1em;
+  }
+
+  .quienes__photos {
+    height: 34vh;
+  }
+
+  .photo {
+    padding: 6px;
+  }
+
+  .photo--main {
+    width: auto;
+    height: 72%;
+    top: 0;
+    left: 0;
+  }
+
+  .photo--secondary {
+    width: auto;
+    height: 58%;
+    top: auto;
+    bottom: 0;
+    right: 0;
+  }
+
+  .photo--tertiary {
+    width: auto;
+    height: 52%;
+    left: 20%;
+    bottom: 5%;
+  }
+}
+

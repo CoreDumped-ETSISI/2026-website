@@ -1,0 +1,15 @@
+services:
+  main-website:
+    build: .
+    image: main-website:latest
+    container_name: main-website
+    hostname: coredumped.etsisi.upm.es
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8080:80"
+    networks:
+      - server-network
+
+networks:
+  server-network:
+    external: true

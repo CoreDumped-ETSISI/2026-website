@@ -7,6 +7,10 @@ services:
     restart: unless-stopped
     ports:
       - "127.0.0.1:8080:80"
+    environment:
+      - TZ=Europe/Madrid
+      - REPO_URL=https://github.com/CoreDumped-ETSISI/2026-website.git
+      - CRON_SCHEDULE=59 23 * * *
     networks:
       - server-network
 

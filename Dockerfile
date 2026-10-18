@@ -1,15 +1,14 @@
-# Etapa 1: Build de la aplicación Vite + React
+# Etapa 1: Build inicial de la aplicación Vite + React desde GitHub
 FROM debian:stable-slim AS builder
+ARG REPO_URL=https://github.com/CoreDumped-ETSISI/2026-website.git
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    nodejs npm ca-certificates \
+    nodejs npm git ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
-COPY package.json package-lock.json ./
-RUN npm ci
-COPY index.html vite.config.js ./
-COPY src ./src
-COPY assets ./assets
-RUN npm run build
+RUN git clone --depth 1 "$REPO_URL" . \
+    && git rev-parse HEAD > /tmp/website-commit \
+    && npm ci \
+    && npm run build
 
 # Etapa 2: Servidor web ligero sobre debian:stable-slim con auto-actualización
 FROM debian:stable-slim
@@ -24,6 +23,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -f /var/www/html/index.nginx-debian.html
 
 COPY --from=builder /app/dist /var/www/html
+COPY --from=builder /tmp/website-commit /var/lib/website-commit
 
 RUN cat <<'EOF' > /usr/local/bin/update-website.sh
 #!/bin/sh

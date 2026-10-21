@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 WORKDIR /app
 RUN git clone --depth 1 "$REPO_URL" . \
     && git rev-parse HEAD > /tmp/website-commit \
-    && npm ci \
+    && npm install \
     && npm run build
 
 # Etapa 2: Servidor web ligero sobre debian:stable-slim con auto-actualización
@@ -71,7 +71,7 @@ RUN printf '%s\n' \
     'rm -rf "$BUILD_DIR"' \
     'git clone --depth 1 "$REPO_URL" "$BUILD_DIR"' \
     'cd "$BUILD_DIR"' \
-    'npm ci' \
+    'npm install' \
     'npm run build' \
     '' \
     'rm -rf /var/www/html/*' \

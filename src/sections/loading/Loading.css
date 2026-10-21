@@ -1,0 +1,124 @@
+/* Sección de pantalla completa dentro de #main-core */
+#loading-core {
+    /* referencia de los círculos (position: absolute) */
+    position: relative;
+    /* los cometas que salen no se ven sobre la siguiente sección */
+    overflow: hidden;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100dvh;
+    /* background-color: var(--color-dark); */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ---------- Colores: cada clase de color define su tono y su recorrido ----------
+ *   --c           color
+ *   --cx / --cy   posición de la esquina respecto al centro
+ *   --a0          ángulo donde entra a la órbita (0deg = derecha, sentido horario)
+ *   --a1          ángulo donde sale de la órbita (y dirección en la que se va)
+ */
+.color-core--white {
+    --c: var(--color-white);
+    --cx: calc(-50dvw + var(--corner));
+    --cy: calc(-50dvh + var(--corner));
+    --a0: -135deg;
+    --a1: 180deg;
+}
+
+.color-core--green {
+    --c: var(--color-green);
+    --cx: calc(50dvw - var(--corner));
+    --cy: calc(-50dvh + var(--corner));
+    --a0: 315deg;
+    --a1: 0deg;
+}
+
+.color-core--purple {
+    --c: var(--color-purple);
+    --cx: calc(-50dvw + var(--corner));
+    --cy: calc(50dvh - var(--corner));
+    --a0: 135deg;
+    --a1: 630deg;
+}
+
+.color-core--black {
+    --c: var(--color-black);
+    --cx: calc(50dvw - var(--corner));
+    --cy: calc(50dvh - var(--corner));
+    --a0: 45deg;
+    --a1: -270deg;
+}
+
+/* ---------- Círculos (cometa + estela) ---------- */
+.color-core {
+    z-index: 10;
+    --size: 12rem;
+    /* distancia del centro del círculo a la esquina de la pantalla */
+    --corner: 4rem;
+    --orbit: 38vmin;
+    /* --i: 0 = cabeza del cometa, 1..n = copias de la estela */
+    --k: calc(1 - var(--i) * 0.09);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: calc(var(--size) * var(--k));
+    height: calc(var(--size) * var(--k));
+    margin: calc(var(--size) * var(--k) / -2) 0 0 calc(var(--size) * var(--k) / -2);
+    border-radius: 50%;
+    /* esfera: brillo arriba a la izquierda y sombra abajo a la derecha */
+    background: radial-gradient(circle at 35% 30%,
+            color-mix(in srgb, var(--c), white 55%) 0%,
+            var(--c) 45%,
+            color-mix(in srgb, var(--c), black 25%) 100%);
+    box-shadow:
+        inset 0 -.4rem .8rem rgb(0 0 0 / .18),
+        0 .4rem 1.2rem rgb(0 0 0 / .15);
+    opacity: calc(1 - var(--i) * 0.11);
+    filter: blur(calc(var(--i) * 1.5px));
+    /* cada copia sigue el mismo camino un poco más tarde */
+    animation: color-core-orbit 3.2s calc(var(--i) * 35ms) both;
+}
+
+/* ---------- Animaciones ---------- */
+
+/*
+ * Todos los pasos usan la misma lista de funciones para que el navegador
+ * interpole el ángulo de rotate() y el recorrido sea un arco, no una recta.
+ */
+@keyframes color-core-orbit {
+
+    /* quietos en su esquina */
+    0%,
+    8% {
+        transform: translate(var(--cx), var(--cy)) rotate(var(--a0)) translateX(0) rotate(calc(-1 * var(--a0))) scale(1);
+        animation-timing-function: ease-in-out;
+    }
+
+    /* entran a la órbita */
+    25% {
+        transform: translate(0, 0) rotate(var(--a0)) translateX(var(--orbit)) rotate(calc(-1 * var(--a0))) scale(.45);
+        animation-timing-function: linear;
+    }
+
+    /* terminan la órbita */
+    85% {
+        transform: translate(0, 0) rotate(var(--a1)) translateX(var(--orbit)) rotate(calc(-1 * var(--a1))) scale(.45);
+        animation-timing-function: ease-in;
+    }
+
+    /* salen disparados fuera de la pantalla */
+    100% {
+        transform: translate(0, 0) rotate(var(--a1)) translateX(120vmax) rotate(calc(-1 * var(--a1))) scale(.45);
+    }
+}
+
+/* Móvil: círculos y órbita más pequeños para que quepa todo */
+@media (max-width: 600px) {
+    .color-core {
+        --size: 7rem;
+        --corner: 2.3rem;
+        --orbit: 44vmin;
+    }
+}

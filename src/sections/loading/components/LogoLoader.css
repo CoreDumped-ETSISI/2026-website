@@ -1,0 +1,117 @@
+.logo-loader {
+    /* por encima de los círculos que orbitan */
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    filter: drop-shadow(1px 1px .5px var(--color-white)) drop-shadow(-1px -1px .5px var(--color-white));
+}
+
+#cta-loader {
+    font-size: clamp(3rem, 12dvw, 4rem);
+    font-family: 'GeistPixel', cursive;
+}
+
+.underscore {
+    opacity: 100%;
+    animation: blinking-underscore .2s infinite alternate;
+}
+
+@keyframes blinking-underscore {
+    from {
+        opacity: 100%;
+
+    }
+
+    to {
+        opacity: 0%;
+
+    }
+}
+
+.loading-spinner {
+    position: relative;
+    width: min(29rem, 80dvw);
+    aspect-ratio: 29 / 16;
+    /* apoyado abajo para que el aplastamiento al caer parezca un bote */
+    transform-origin: 50% 100%;
+    animation: jump-animation 3.5s both;
+}
+
+.loading-spinner>img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#loading-black-img {
+    opacity: 50%;
+}
+
+#loading-green-black-img {
+    -webkit-mask-image: linear-gradient(to top, #000 var(--porcentage-img), transparent calc(var(--porcentage-img) + 1%));
+    mask-image: linear-gradient(to top, #000 var(--porcentage-img), transparent calc(var(--porcentage-img) + 1%));
+}
+
+/*
+ * Botes cada vez más bajos mientras crece.
+ * translateY va antes que scale para que la altura del salto no dependa del tamaño.
+ * Subida: ease-out (frena arriba). Bajada: ease-in (acelera al caer).
+ */
+@keyframes jump-animation {
+    0% {
+        opacity: 0;
+        transform: translateY(0) scale(.2, .2);
+        animation-timing-function: ease-out;
+    }
+
+    15% {
+        opacity: 1;
+        transform: translateY(-14vh) scale(.45, .45);
+        animation-timing-function: ease-in;
+    }
+
+    30% {
+        transform: translateY(0) scale(.65, .5);
+        animation-timing-function: ease-out;
+    }
+
+    45% {
+        transform: translateY(-8vh) scale(.75, .75);
+        animation-timing-function: ease-in;
+    }
+
+    58% {
+        transform: translateY(0) scale(.9, .78);
+        animation-timing-function: ease-out;
+    }
+
+    70% {
+        transform: translateY(-3vh) scale(.95, .95);
+        animation-timing-function: ease-in;
+    }
+
+    80% {
+        transform: translateY(0) scale(1.06, .94);
+        animation-timing-function: ease-out;
+    }
+
+    90% {
+        transform: translateY(0) scale(.98, 1.02);
+        animation-timing-function: ease-in-out;
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1, 1);
+    }
+}
+
+@media (max-width: 600px) {
+    .logo-loader {
+        gap: 1rem;
+    }
+}

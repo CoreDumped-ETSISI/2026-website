@@ -34,15 +34,17 @@ export const LogoLoader = ({ porcentage, isLoading }) => {
                 />
                 <img
                     id="loading-green-black-img"
+                    className={porcentage >= 100 ? "active" : undefined}
+
                     src={coreGreenBlackBoth}
                     alt={isLoading ? "Loading..." : "Loaded"} style={{ '--porcentage-img': `${porcentage}%` }}
                 />
             </div>
             {
                 isLoading ?
-                    <p id="cta-loader">{porcentage}%</p>
+                    <p id="cta-loader" className="porcentage-text">{porcentage}%</p>
                     :
-                    <p id="cta-loader" className="write-text">&gt; <span className="text">{typedText}</span><span className="underscore">_</span></p>
+                    <p id="cta-loader" className={`write-text ${porcentage >= 100 ? "active" : undefined}`}>&gt; <span className="text">{typedText}</span><span className="underscore">_</span></p>
             }
         </div>
     )

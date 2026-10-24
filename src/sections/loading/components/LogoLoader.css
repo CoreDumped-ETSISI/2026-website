@@ -37,7 +37,7 @@
     aspect-ratio: 29 / 16;
     /* apoyado abajo para que el aplastamiento al caer parezca un bote */
     transform-origin: 50% 100%;
-    animation: jump-animation 3.5s both;
+    animation: glitch .5s infinite;
 }
 
 .loading-spinner>img {
@@ -56,58 +56,23 @@
     mask-image: linear-gradient(to top, #000 var(--porcentage-img), transparent calc(var(--porcentage-img) + 1%));
 }
 
-/*
- * Botes cada vez más bajos mientras crece.
- * translateY va antes que scale para que la altura del salto no dependa del tamaño.
- * Subida: ease-out (frena arriba). Bajada: ease-in (acelera al caer).
- */
-@keyframes jump-animation {
-    0% {
-        opacity: 0;
-        transform: translateY(0) scale(.2, .2);
-        animation-timing-function: ease-out;
-    }
 
-    15% {
-        opacity: 1;
-        transform: translateY(-14vh) scale(.45, .45);
-        animation-timing-function: ease-in;
-    }
+#cta-loader.active {
+    animation: glitch 3s infinite;
+}
 
-    30% {
-        transform: translateY(0) scale(.65, .5);
-        animation-timing-function: ease-out;
-    }
+#cta-loader.porcentage-text {
+    filter: drop-shadow(150px 15px 1px var(--color-green)) drop-shadow(-150px -15px 1px var(--color-purple));
+    animation: return-glitch 3.5s ease-in-out;
+}
 
-    45% {
-        transform: translateY(-8vh) scale(.75, .75);
-        animation-timing-function: ease-in;
-    }
+#loading-green-black-img.active {
+    animation: glitch 1.4s infinite;
+    /*transition:all ease-out 0.1s;*/
+    text-shadow: 30px 13px var(--color-green),
+        -38px -4px var(--color-purple),
+        -2px -4px var(--color-white);
 
-    58% {
-        transform: translateY(0) scale(.9, .78);
-        animation-timing-function: ease-out;
-    }
-
-    70% {
-        transform: translateY(-3vh) scale(.95, .95);
-        animation-timing-function: ease-in;
-    }
-
-    80% {
-        transform: translateY(0) scale(1.06, .94);
-        animation-timing-function: ease-out;
-    }
-
-    90% {
-        transform: translateY(0) scale(.98, 1.02);
-        animation-timing-function: ease-in-out;
-    }
-
-    100% {
-        opacity: 1;
-        transform: translateY(0) scale(1, 1);
-    }
 }
 
 @media (max-width: 600px) {
@@ -115,3 +80,23 @@
         gap: 1rem;
     }
 }
+
+
+@-webkit-keyframes glitch {
+    from {
+        filter: drop-shadow(3px 3px 1px var(--color-green)) drop-shadow(-3px -3px 1px var(--color-purple));
+    }
+}
+
+@-webkit-keyframes return-glitch {
+    80% {
+        filter: drop-shadow(150px 15px 1px var(--color-green)) drop-shadow(-150px -15px 1px var(--color-purple));
+    }
+
+    100% {
+        filter: drop-shadow(0px 0px 1px var(--color-green)) drop-shadow(-0px -0px 1px var(--color-purple));
+    }
+}
+
+
+@keyframes glitch-text {}

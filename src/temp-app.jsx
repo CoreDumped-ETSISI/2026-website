@@ -16,3 +16,6 @@ export default function TempApp() {
         </main>
     )
 };
+
+
+// Ejemplo de app antiguo

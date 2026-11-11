@@ -1,8 +1,8 @@
 import React from 'react';
 import './QuienesSomos.css';
-import fotoSala from '../../assets/verde/todos_sala.webp';
-import fotoCodeboost from '../../assets/verde/codeboost.webp';
-import fotoLluvia from '../../assets/verde/bajolalluvia.webp';
+import fotoSala from './../../../assets/verde/todos_sala.webp';
+import fotoCodeboost from './../../../assets/verde/codeboost.webp';
+import fotoLluvia from './../../../assets/verde/bajolalluvia.webp';
 
 const QuienesSomos = () => (
   <div className="quienes">

@@ -1,9 +1,8 @@
-import React from 'react';
 import './QueHacemos.css';
-import cartelDimension from '../../assets/morado/carteldimension26.webp';
-import tallerPython from '../../assets/morado/tallerpython.webp';
-import tallerScratch from '../../assets/morado/tallerscratch.webp';
-import tallerC from '../../assets/morado/tallerC.webp';
+import cartelDimension from './../../../assets/morado/carteldimension26.webp';
+import tallerPython from './../../../assets/morado/tallerpython.webp';
+import tallerScratch from './../../../assets/morado/tallerscratch.webp';
+import tallerC from './../../../assets/morado/tallerC.webp';
 
 const QueHacemos = () => (
   <div className="que-hacemos">

@@ -1,0 +1,10 @@
+/* Sección de pantalla completa dentro de #main-core */
+#loading-core {
+    box-sizing: border-box;
+    width: 100dvw;
+    height: 100dvh;
+    /* background-color: var(--color-dark); */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

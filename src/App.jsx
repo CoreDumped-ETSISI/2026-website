@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import './App.css';
 import logo from '../assets/icons/core-green-black-both.svg';
-import QuienesSomos from './sections/QuienesSomos.jsx';
-import QueHacemos from './sections/QueHacemos.jsx';
-import VenAConocernos from './sections/VenAConocernos.jsx';
+import QuienesSomos from './sections/quienes-somos/QuienesSomos.jsx';
+import QueHacemos from './sections/que-hacemos/QueHacemos.jsx';
+import VenAConocernos from './sections/ven-a-conocernos/VenAConocernos.jsx';
 
 const SECTIONS = ['blanco', 'verde', 'morado', 'negro'];
 // Secciones con fondo oscuro → indicador en blanco

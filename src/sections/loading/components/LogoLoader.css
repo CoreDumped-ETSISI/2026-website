@@ -1,0 +1,102 @@
+.logo-loader {
+    /* por encima de los círculos que orbitan */
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    filter: drop-shadow(1px 1px .5px var(--color-white)) drop-shadow(-1px -1px .5px var(--color-white));
+}
+
+#cta-loader {
+    font-size: clamp(3rem, 12dvw, 4rem);
+    font-family: 'GeistPixel', cursive;
+}
+
+.underscore {
+    opacity: 100%;
+    animation: blinking-underscore .2s infinite alternate;
+}
+
+@keyframes blinking-underscore {
+    from {
+        opacity: 100%;
+
+    }
+
+    to {
+        opacity: 0%;
+
+    }
+}
+
+.loading-spinner {
+    position: relative;
+    width: min(29rem, 80dvw);
+    aspect-ratio: 29 / 16;
+    /* apoyado abajo para que el aplastamiento al caer parezca un bote */
+    transform-origin: 50% 100%;
+    animation: glitch .5s infinite;
+}
+
+.loading-spinner>img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#loading-black-img {
+    opacity: 50%;
+}
+
+#loading-green-black-img {
+    -webkit-mask-image: linear-gradient(to top, #000 var(--porcentage-img), transparent calc(var(--porcentage-img) + 1%));
+    mask-image: linear-gradient(to top, #000 var(--porcentage-img), transparent calc(var(--porcentage-img) + 1%));
+}
+
+
+#cta-loader.active {
+    animation: glitch 3s infinite;
+}
+
+#cta-loader.porcentage-text {
+    filter: drop-shadow(150px 15px 1px var(--color-green)) drop-shadow(-150px -15px 1px var(--color-purple));
+    animation: return-glitch 3.5s ease-in-out;
+}
+
+#loading-green-black-img.active {
+    animation: glitch 1.4s infinite;
+    /*transition:all ease-out 0.1s;*/
+    text-shadow: 30px 13px var(--color-green),
+        -38px -4px var(--color-purple),
+        -2px -4px var(--color-white);
+
+}
+
+@media (max-width: 600px) {
+    .logo-loader {
+        gap: 1rem;
+    }
+}
+
+
+@-webkit-keyframes glitch {
+    from {
+        filter: drop-shadow(3px 3px 1px var(--color-green)) drop-shadow(-3px -3px 1px var(--color-purple));
+    }
+}
+
+@-webkit-keyframes return-glitch {
+    80% {
+        filter: drop-shadow(150px 15px 1px var(--color-green)) drop-shadow(-150px -15px 1px var(--color-purple));
+    }
+
+    100% {
+        filter: drop-shadow(0px 0px 1px var(--color-green)) drop-shadow(-0px -0px 1px var(--color-purple));
+    }
+}
+
+
+@keyframes glitch-text {}

@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'GeistPixel';
+  src: url("./../assets/font/GeistPixel-Regular-VariableFont_ELSH.ttf");
+
+}
+
+
 /* src/index.css */
 /* Global styles can go here */
 html,
@@ -9,4 +16,17 @@ body {
   /* El scroll nativo se sustituye por la navegación por secciones de App.jsx */
   overflow: hidden;
   overscroll-behavior: none;
+}
+
+
+/* aquí iran las variables de entornor de css para core  */
+:root {
+
+  --color-white: #ffffff;
+  --color-green: #5fb030;
+  --color-purple: #800080;
+  --color-black: #000000;
+  --color-dark: #0f1011;
+  /* blanco roto con un toque de verde: deja ver los elementos blancos */
+  --color-bg-light: color-mix(in srgb, var(--color-green) 10%, #dddbdb);
 }

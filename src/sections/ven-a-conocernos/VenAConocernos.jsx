@@ -1,6 +1,6 @@
-import React from 'react';
-import './VenAConocernos.css';
-import logo from '../../assets/icons/core-white-logo.svg';
+import React from "react";
+import "./VenAConocernos.css";
+import logo from "./../../../assets/icons/core-white-logo.svg";
 
 const VenAConocernos = () => (
   <div className="ven-a-conocernos">

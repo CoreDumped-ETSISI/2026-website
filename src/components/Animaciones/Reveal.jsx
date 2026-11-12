@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
+
 import "../../styles/Reveal/Reveal.css"
+
 export default function Reveal({ from = "bottom", children, ...rest }) {
     const ref = useRef(null);
     const [visible, setVisible] = useState(false);
@@ -9,12 +11,7 @@ export default function Reveal({ from = "bottom", children, ...rest }) {
         if (!el) return;
 
         const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting) {
-                    setVisible(true);
-                    observer.disconnect(); // solo se anima una vez
-                }
-            },
+            ([entry]) => setVisible(entry.isIntersecting),
             { threshold: 0.2 }
         );
 
@@ -23,12 +20,12 @@ export default function Reveal({ from = "bottom", children, ...rest }) {
     }, []);
 
     return (
-        <div
-            ref={ref}
-            className={`reveal reveal--${from} ${visible ? "reveal--visible" : ""}`}
-            {...rest}
-        >
-            {children}
+        // El wrapper exterior NO se mueve: es el que observa.
+        // El interior es el que se anima.
+        <div ref={ref} {...rest}>
+            <div className={`reveal reveal--${from} ${visible ? "reveal--visible" : ""}`}>
+                {children}
+            </div>
         </div>
     );
 }

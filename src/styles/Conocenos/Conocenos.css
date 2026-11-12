@@ -1,0 +1,14 @@
+.conocenos-page {
+    overflow-x: clip;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .reveal,
+    .reveal--right,
+    .reveal--left,
+    .reveal--bottom {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}

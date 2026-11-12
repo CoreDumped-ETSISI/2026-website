@@ -1,32 +1,127 @@
-@font-face {
-  font-family: 'GeistPixel';
-  src: url("./../assets/font/GeistPixel-Regular-VariableFont_ELSH.ttf");
 
+/* ===== Alte Haas Grotesk (regular + bold) ===== */
+@font-face {
+  font-family: 'Alte Haas Grotesk';
+  src: url('../assets/font/AlteHaasGroteskRegular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Alte Haas Grotesk';
+  src: url('../assets/font/AlteHaasGroteskBold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
 }
 
+/* ===== Cont (3 pesos: light / medium / bold) ===== */
+@font-face {
+  font-family: 'Cont';
+  src: url('../assets/font/contl.ttf') format('truetype');
+  font-weight: 300;   /* Light */
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Cont';
+  src: url('../assets/font/contm.ttf') format('truetype');
+  font-weight: 500;   /* Medium */
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Cont';
+  src: url('../assets/font/contb.ttf') format('truetype');
+  font-weight: 700;   /* Bold */
+  font-style: normal;
+  font-display: swap;
+}
 
-/* src/index.css */
-/* Global styles can go here */
+/* ===== Geist Pixel (variable) ===== */
+@font-face {
+  font-family: 'Geist Pixel';
+  src: url('../assets/font/GeistPixel-Regular-VariableFont_ELSH.ttf') format('truetype-variations');
+  font-weight: 100 900;   /* rango si la variable lo soporta; si no, pon 400 */
+  font-style: normal;
+  font-display: swap;
+}
+
 html,
 body {
   margin: 0;
   padding: 0;
   font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
-  /* El scroll nativo se sustituye por la navegación por secciones de App.jsx */
-  overflow: hidden;
-  overscroll-behavior: none;
+  overflow-x: hidden;
+  background: var(--bg);
+  color: var(--text);
+  transition: background-color .25s ease, color .25s ease;
 }
 
-
-/* aquí iran las variables de entornor de css para core  */
+/* Colores base extraídos del logo */
 :root {
-
   --color-white: #ffffff;
-  --color-green: #5fb030;
-  --color-purple: #800080;
   --color-black: #000000;
+  --color-green: #5fb030;
+  --color-green-light: #7bd14a;  /* hover sobre fondo oscuro */
+  --color-green-dark: #3f7a1c;   /* texto/enlaces sobre fondo claro (contraste AA) */
   --color-dark: #0f1011;
-  /* blanco roto con un toque de verde: deja ver los elementos blancos */
-  --color-bg-light: color-mix(in srgb, var(--color-green) 10%, #dddbdb);
+}
+
+/* Tema oscuro (por defecto) */
+:root,
+:root[data-mantine-color-scheme="dark"] {
+  color-scheme: dark;
+  --bg: var(--color-dark);
+  --surface: #17191b;
+  --surface-2: #1f2225;
+  --border: #2a2e32;
+  --terminal-text: #00ff66;
+  --text: #f1f3ef;
+  --text-muted: #9aa39a;
+  --accent: var(--color-green);
+  --accent-hover: var(--color-green-light);
+  --accent-contrast: var(--color-black);   /* texto sobre botones verdes */
+  --logo-ink: var(--color-white);          /* partes negras del logo */
+}
+
+/* Tema claro */
+:root[data-mantine-color-scheme="light"] {
+  color-scheme: light;
+  --bg: color-mix(in srgb, var(--color-green) 6%, #f4f5f3);
+  --surface: var(--color-white);
+  --surface-2: #eceee9;
+  --border: #d6d9d2;
+  --terminal-text: #111312;
+  --text: #111312;
+  --text-muted: #5a625a;
+  --accent: var(--color-green-dark);
+  --accent-hover: var(--color-green);
+  --accent-contrast: var(--color-white);
+  --logo-ink: var(--color-black);
+}
+
+a { color: var(--accent); }
+a:hover { color: var(--accent-hover); }
+::selection { background: var(--color-green); color: var(--color-black); }
+
+.fade-up {
+  opacity: 0;
+  transform: translateY(24px);
+  pointer-events: none;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-up--visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-up {
+    transform: none;
+    transition: opacity 0.01ms;
+  }
 }

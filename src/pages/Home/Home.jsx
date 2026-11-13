@@ -19,7 +19,9 @@ function Home() {
             <Stack gap="md" align="center">
 
                 <TerminalTypingText
-                    text="root@coredumped:~$ initializing system... access granted."
+                    user="root"
+                    host="coredumped"
+                    text=":~$ initializing system... access granted."
                     speed={35}
                     onComplete={() => setTypingDone(true)}
                 />
@@ -38,6 +40,7 @@ function Home() {
                     className={`fade-up ${typingDone ? "fade-up--visible" : ""}`}
                     aria-hidden={!typingDone}
                     tabIndex={typingDone ? 0 : -1}
+                    color="red !important"
                 > <T>Conócenos</T> </Button>
 
             </Stack>

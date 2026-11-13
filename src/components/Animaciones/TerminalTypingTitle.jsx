@@ -1,23 +1,52 @@
 import { Title } from "@mantine/core";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-function TerminalTypingText({ text, speed = 50, onComplete }) {
+function TerminalTypingText({ text, user, host, speed = 50, onComplete }) {
+    const [displayedUser, setDisplayedUser] = useState("");
+    const [displayedHost, setDisplayedHost] = useState("");
     const [displayedText, setDisplayedText] = useState("");
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const [isFinished, setIsFinished] = useState(false);
+    const onCompleteRef = useRef(onComplete);
 
     useEffect(() => {
-        if (currentIndex < text.length) {
-            const timeout = setTimeout(() => {
-                setDisplayedText((prev) => prev + text[currentIndex]);
-                setCurrentIndex((prev) => prev + 1);
-            }, speed);
-            return () => clearTimeout(timeout);
-        } else if (!isFinished) {
-            setIsFinished(true);
-            if (onComplete) onComplete();
-        }
-    }, [currentIndex, text, speed, isFinished]);
+        onCompleteRef.current = onComplete;
+    }, [onComplete]);
+
+    useEffect(() => {
+        let cancelled = false;
+        let timeout;
+        let resolveTimeout;
+
+        const typeText = async () => {
+            const segments = [
+                [user, setDisplayedUser],
+                [host, setDisplayedHost],
+                [text, setDisplayedText],
+            ];
+
+            for (const [segment, setDisplayedSegment] of segments) {
+                for (const character of segment) {
+                    await new Promise((resolve) => {
+                        resolveTimeout = resolve;
+                        timeout = setTimeout(resolve, speed);
+                    });
+
+                    resolveTimeout = undefined;
+                    if (cancelled) return;
+                    setDisplayedSegment((previous) => previous + character);
+                }
+            }
+
+            if (!cancelled) onCompleteRef.current?.();
+        };
+
+        typeText();
+
+        return () => {
+            cancelled = true;
+            clearTimeout(timeout);
+            resolveTimeout?.();
+        };
+    }, [text, user, host, speed]);
 
     return (
         <Title
@@ -28,7 +57,7 @@ function TerminalTypingText({ text, speed = 50, onComplete }) {
                 //  textShadow: '0 0 8px rgba(0, 255, 102, 0.4)'
             }}
         >
-            {displayedText}
+            <span style={{ color: "#af72fff3" }}>{displayedUser}</span><span style={{ color: "var(--text)", margin: "0 4px" }}>@</span><span style={{ color: "#04b807f3" }}>{displayedHost}</span><span style={{ color: "var(--text)" }}>{displayedText}</span>
             <span style={{
                 display: 'inline-block',
                 width: '8px',

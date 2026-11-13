@@ -20,7 +20,7 @@ function Home() {
 
                 <TerminalTypingText
                     text="root@coredumped:~$ initializing system... access granted."
-                    speed={60}
+                    speed={35}
                     onComplete={() => setTypingDone(true)}
                 />
                 <span/>

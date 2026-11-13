@@ -6,7 +6,8 @@
     "predev": "node src/scripts/translate.mjs",
     "dev": "vite",
     "prebuild": "node src/scripts/translate.mjs",
-    "build": "vite build",
+    "build": "npm run i18n && vite build",
+    "simplebuild": "vite build",
     "preview": "vite preview",
     "i18n": "node src/scripts/translate.mjs"
   },

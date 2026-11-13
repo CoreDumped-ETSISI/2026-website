@@ -1,0 +1,84 @@
+#departamentos {
+    width: 100%;
+    min-width: 100dvw;
+    min-height: 100dvh;
+
+    &>div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 40dvh;
+        padding: clamp(2rem, 6vw, 4rem) clamp(1rem, 4vw, 2rem);
+        gap: 1rem;
+        text-align: center;
+        box-sizing: border-box;
+    }
+
+    &>div#disegno>div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.25rem;
+        width: 100%;
+    }
+
+    &>div>h1 {
+        font-size: clamp(2rem, 5vw, 2.75rem);
+        font-weight: 700;
+        margin: 0;
+        line-height: 1.1;
+    }
+
+    &>div p {
+        font-size: clamp(1rem, 2.5vw, 1.2rem);
+        line-height: 1.6;
+        max-width: 600px;
+        width: 100%;
+        margin: 0;
+    }
+
+    &>div a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        align-self: center;
+        max-width: 100%;
+        border: 2px solid var(--text-muted);
+        filter: drop-shadow(3px 3px 1px var(--text-muted));
+        border-radius: 7px;
+        background: color-mix(in srgb, var(--text-muted) 100%, #fff 90%);
+        color: color-mix(in srgb, #0d2300 100%, #fff 10%);
+        font-weight: 700;
+        padding: 0.75rem 1.5rem;
+        text-align: center;
+        transition: transform 0.2s ease-in-out, filter 0.2s ease-in-out, color 0.3s ease;
+    }
+
+    &>div a:hover {
+        transform: scale(1.05);
+        filter: drop-shadow(-3px -3px 1px var(--text-muted));
+        color: color-mix(in srgb, #0d2300 100%, #fff 20%);
+    }
+
+    &>div a:active {
+        filter: drop-shadow(-3px -3px 1px var(--text-muted)) drop-shadow(3px 3px 1px var(--text-muted));
+        transform: scale(0.95);
+    }
+}
+
+@media (max-width: 48em) {
+    #departamentos {
+        &>div {
+            min-height: auto;
+            padding: 2.5rem 1rem;
+        }
+
+        &>div a {
+            width: 100%;
+            max-width: 320px;
+            padding: 0.85rem 1rem;
+        }
+    }
+}

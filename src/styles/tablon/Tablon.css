@@ -1,0 +1,56 @@
+.tablon-page {
+    min-height: calc(100dvh - 70px);
+}
+
+.tablon-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--surface);
+}
+
+.tablon-table {
+    width: 100%;
+    min-width: 640px;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.tablon-table th,
+.tablon-table td {
+    padding: 14px 16px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+}
+
+.tablon-table th:not(:last-child),
+.tablon-table td:not(:last-child) {
+    border-right: 1px solid var(--border);
+}
+
+.tablon-table thead th {
+    background: color-mix(in srgb, var(--accent) 40%, var(--surface));
+    color: var(--text);
+    font-weight: 700;
+}
+
+.tablon-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.tablon-table tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+.tablon-table tbody tr:hover {
+    background: color-mix(in srgb, var(--accent) 10%, var(--surface));
+}
+
+@media (max-width: 48em) {
+
+    .tablon-table th,
+    .tablon-table td {
+        padding: 12px;
+    }
+}

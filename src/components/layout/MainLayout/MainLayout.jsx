@@ -4,7 +4,7 @@ import { AppShell } from "@mantine/core";
 
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
-import {T} from "../../../i18n/lang";
+import { T } from "../../../i18n/lang";
 
 export default function MainLayout() {
     const { pathname } = useLocation();

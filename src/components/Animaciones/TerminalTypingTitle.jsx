@@ -1,7 +1,7 @@
-import {Title} from "@mantine/core";
-import {useEffect, useState} from "react";
+import { Title } from "@mantine/core";
+import { useEffect, useState } from "react";
 
-function TerminalTypingText({text, speed = 50, onComplete}) {
+function TerminalTypingText({ text, speed = 50, onComplete }) {
     const [displayedText, setDisplayedText] = useState("");
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isFinished, setIsFinished] = useState(false);
@@ -25,7 +25,7 @@ function TerminalTypingText({text, speed = 50, onComplete}) {
             style={{
                 fontFamily: 'monospace',
                 color: "var(--terminal-text)",
-              //  textShadow: '0 0 8px rgba(0, 255, 102, 0.4)'
+                //  textShadow: '0 0 8px rgba(0, 255, 102, 0.4)'
             }}
         >
             {displayedText}
@@ -37,7 +37,7 @@ function TerminalTypingText({text, speed = 50, onComplete}) {
                 marginLeft: '4px',
                 verticalAlign: 'middle',
                 animation: 'blink 1s infinite'
-            }}/>
+            }} />
         </Title>
     );
 }

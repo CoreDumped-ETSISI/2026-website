@@ -118,7 +118,7 @@ function VenAConocernos() {
 
 function Conocenos() {
     return (
-        <div className="conocenos-page">
+        <div id="conocenos-page">
             <Container size="lg" pb={120}>
                 <QuienesSomos />
                 <QueHacemos />

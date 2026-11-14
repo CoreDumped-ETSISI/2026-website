@@ -1,6 +1,6 @@
 function Contacto() {
-    return (<>
-        <section className="contacto">
+    return (
+        <section id="contacto-page">
             <h2>Ponte en contacto con nosotros</h2>
 
             <ul>
@@ -31,8 +31,7 @@ function Contacto() {
                 </li>
             </ul>
         </section>
-
-    </>)
+    )
 }
 
 export default Contacto

@@ -1,12 +1,10 @@
-#departamentos-page {
-    width: 100%;
+HEAD #departamentos-page {
     min-width: 100dvw;
     min-height: 100dvh;
 
     &>div {
         display: flex;
         position: relative;
-        flex-direction: column;
         align-items: center;
         justify-content: center;
         min-height: 40dvh;
@@ -98,16 +96,20 @@
             left: 0;
             top: 0;
         }
+    }
 
-        &>div {
-            min-height: auto;
-            padding: 2.5rem 1rem;
-        }
+    @media (max-width: 48em) {
+        #departamentos {
+            &>div {
+                min-height: auto;
+                padding: 2.5rem 1rem;
+            }
 
-        &>div a {
-            width: 100%;
-            max-width: 320px;
-            padding: 0.85rem 1rem;
+            &>div a {
+                width: 100%;
+                max-width: 320px;
+                padding: 0.85rem 1rem;
+            }
         }
     }
 }

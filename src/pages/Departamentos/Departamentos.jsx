@@ -4,7 +4,7 @@ import Disegno from "../Secciones/Impresion3d/Disegno";
 
 function Departamentos() {
     return (
-        <div id="departamentos">
+        <div id="departamentos-page">
             <Cibercore />
             <Disegno />
         </div>

@@ -20,7 +20,8 @@ ENV TZ=Europe/Madrid \
 RUN apt-get update && apt-get install -y --no-install-recommends \
     nginx-light cron git ca-certificates tzdata \
     && rm -rf /var/lib/apt/lists/* \
-    && rm -f /var/www/html/index.nginx-debian.html
+    && rm -f /var/www/html/index.nginx-debian.html \
+    && sed -i 's|try_files \$uri \$uri/ =404;|try_files \$uri \$uri/ /index.html;|' /etc/nginx/sites-available/default
 
 COPY --from=builder /app/dist /var/www/html
 COPY --from=builder /tmp/website-commit /var/lib/website-commit

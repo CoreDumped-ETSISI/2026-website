@@ -2,6 +2,7 @@ import { Container, SimpleGrid, Title } from "@mantine/core";
 import { T } from "../../i18n/lang";
 import Producto from "../../components/Cards/Productos/Producto";
 import { useState } from "react";
+import TerminalTypingTitle from "../../components/Animaciones/TerminalTypingTitle";
 
 // this array is an example of products, you can replace it with your own data
 // the function below generates 12 products with random quantities and placeholder images
@@ -17,9 +18,9 @@ function Tienda() {
     return (
         <div id="tienda-page">
             <Container size="xl" py="xl" pb={120}>
-                <Title order={1} mb="xl">
+                <TerminalTypingTitle order={1} mb="xl">
                     <T>Tienda</T>
-                </Title>
+                </TerminalTypingTitle>
 
                 <SimpleGrid cols={{ base: 1, xs: 2, md: 3, lg: 4 }} spacing="lg">
                     {products.map((product, i) => (

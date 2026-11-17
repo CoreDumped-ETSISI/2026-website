@@ -1,7 +1,35 @@
+// components/Animaciones/TerminalTyper.jsx
 import { Title } from "@mantine/core";
-import { useEffect, useRef, useState } from "react";
+import { Children, isValidElement, useEffect, useRef, useState } from "react";
+import { T, useT } from "../../i18n/lang"; // ajusta la ruta
+import classes from "./TerminalTypingTitle.module.css";
+// Recorre children y devuelve texto plano.
+// - <T>texto</T> se traduce con t()
+// - texto suelto se deja tal cual (se traduce entero después si no había ningún <T>)
+function extract(children, t, found) {
+    return Children.toArray(children)
+        .map((child) => {
+            if (typeof child === "string" || typeof child === "number") return String(child);
+            if (isValidElement(child)) {
+                if (child.type === T) {
+                    found.current = true;
+                    return t(extract(child.props.children, t, found));
+                }
+                return extract(child.props.children, t, found);
+            }
+            return "";
+        })
+        .join("");
+}
 
-function TerminalTypingText({ text, user, host, speed = 50, onComplete }) {
+function TerminalTyper({ children, user = "", host = "", speed = 50, onComplete }) {
+    const t = useT();
+
+    const found = { current: false };
+    let text = extract(children, t, found);
+    // Sin <T> dentro: traduce el texto completo (<TerminalTyper>Tablón</TerminalTyper>)
+    if (!found.current) text = t(text);
+
     const [displayedUser, setDisplayedUser] = useState("");
     const [displayedHost, setDisplayedHost] = useState("");
     const [displayedText, setDisplayedText] = useState("");
@@ -15,6 +43,10 @@ function TerminalTypingText({ text, user, host, speed = 50, onComplete }) {
         let cancelled = false;
         let timeout;
         let resolveTimeout;
+
+        setDisplayedUser("");
+        setDisplayedHost("");
+        setDisplayedText("");
 
         const typeText = async () => {
             const segments = [
@@ -48,26 +80,23 @@ function TerminalTypingText({ text, user, host, speed = 50, onComplete }) {
         };
     }, [text, user, host, speed]);
 
+    const hasPrompt = user || host;
+
     return (
         <Title
             component="span"
-            style={{
-                fontFamily: 'monospace',
-                color: "var(--terminal-text)",
-                //  textShadow: '0 0 8px rgba(0, 255, 102, 0.4)'
-            }}
+            className={classes.root}
+            aria-label={`${user}${hasPrompt ? "@" : ""}${host}${text}`}
         >
-            <span style={{ color: "#af72fff3" }}>{displayedUser}</span><span style={{ color: "var(--text)", margin: "0 4px" }}>@</span><span style={{ color: "#04b807f3" }}>{displayedHost}</span><span style={{ color: "var(--text)" }}>{displayedText}</span>
-            <span style={{
-                display: 'inline-block',
-                width: '8px',
-                height: '1.1em',
-                backgroundColor: "var(--terminal-text)",
-                marginLeft: '4px',
-                verticalAlign: 'middle',
-                animation: 'blink 1s infinite'
-            }} />
+            <span aria-hidden="true">
+                <span className={classes.user}>{displayedUser}</span>
+                {hasPrompt && <span className={classes.at}>@</span>}
+                <span className={classes.host}>{displayedHost}</span>
+                <span className={classes.text}>{displayedText}</span>
+                <span className={classes.cursor} />
+            </span>
         </Title>
     );
 }
-export default TerminalTypingText;
+
+export default TerminalTyper;

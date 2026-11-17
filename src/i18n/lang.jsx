@@ -2,7 +2,7 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState } 
 import en from "./translations.en.json"; // generado por scripts/translate.mjs
 
 const dictionaries = { en };
-export const normalize = (s) => s.replace(/\s+/g, " ").trim();
+const normalize = (s) => s.replace(/\s+/g, " ").trim();
 
 const LangContext = createContext(null);
 
@@ -14,7 +14,7 @@ function initialLang() {
     return navigator.language?.startsWith("en") ? "en" : "es";
 }
 
-export function LanguageProvider({ children }) {
+function LanguageProvider({ children }) {
     const [lang, setLang] = useState(initialLang);
 
     // Mantiene <html lang> sincronizado (clave para lectores de pantalla)
@@ -34,22 +34,30 @@ export function LanguageProvider({ children }) {
     return <LangContext.Provider value={value}>{children}</LangContext.Provider>;
 }
 
-export const useLang = () => useContext(LangContext);
-export const useT = () => useContext(LangContext).t;
+const useLang = () => useContext(LangContext);
+const useT = () => useContext(LangContext).t;
 
 // Componente T: envuelve el texto en español que quieres traducir
-export function T({ children }) {
+function T({ children }) {
     return useT()(String(children));
 }
 
 // Marca textos definidos fuera de un componente (arrays, constantes).
 // No hace nada en ejecución: solo avisa al script de que debe traducirlo.
-export const msg = (text) => text;
+const msg = (text) => text;
 
 // Título de la pestaña traducido: usePageTitle(msg("Inicio | CoreDumped"))
-export function usePageTitle(text) {
+function usePageTitle(text) {
     const t = useT();
     useEffect(() => {
         document.title = t(text);
     }, [t, text]);
 }
+
+export { normalize };
+export { LanguageProvider };
+export { useLang };
+export { useT };
+export { T };
+export { msg };
+export { usePageTitle };

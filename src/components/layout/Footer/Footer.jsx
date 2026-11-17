@@ -1,16 +1,19 @@
-
 import { Container, Text, Anchor, Stack } from "@mantine/core";
 import {T} from "../../../i18n/lang";
+import {Link} from "react-router-dom";
 
 export default function Footer() {
     return (
-        <footer>
+        <footer style={{ minHeight: "var(--footer-h)" }}>
             <Container py="lg">
                 <Stack align="center" gap="xs">
                     <Text size="sm">
-                        © {new Date().getFullYear()} CoreDumped
+                        © {new Date().getFullYear()} CoreDu2mped
                     </Text>
-
+                    <Text size="xs" c="dimmed">
+                        <T>Desarrollador</T>
+                        <Link to="https://github.com/Hacking-jack">@Hacking-jack</Link>
+                    </Text>
                     <Text size="xs" c="dimmed">
                         <T>Licenciado bajo la Apache License, Version 2.0.</T>
                     </Text>

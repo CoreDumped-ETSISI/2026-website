@@ -1,6 +1,7 @@
 import { Container, Title } from "@mantine/core";
-import { T } from "../../i18n/lang";
-import "../../styles/tablon/Tablon.css";
+import {msg, T} from "../../i18n/lang";
+import "./Tablon.css";
+import TerminalTypingTitle from "../../components/Animaciones/TerminalTypingTitle";
 
 function Tablon() {
     const projects = ["Proyecto 1", "Proyecto 2", "Proyecto 3", "Proyecto 4"];
@@ -11,10 +12,7 @@ function Tablon() {
         <div id="tablon-page">
 
             <Container size="lg" py="xl" pb={120}>
-                <Title order={1} mb="xl">
-                    <T>Tablón</T>
-                </Title>
-
+                <TerminalTypingTitle><T>Tablón</T></TerminalTypingTitle>
                 <div className="tablon-table-wrapper">
                     <table className="tablon-table">
                         <thead>

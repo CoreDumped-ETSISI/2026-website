@@ -1,6 +1,6 @@
 import "./Colaboradores.css";
-import ColaboradoresList from "../Secciones/Colaboradores/Colaboradores";
-import Colabora from "../Secciones/ColaboraConNosotros/Colabora";
+import ColaboradoresList from "../Departamentos/Secciones/Colaboradores/Colaboradores";
+import Colabora from "../Departamentos/Secciones/ColaboraConNosotros/Colabora";
 
 function Colaboradores() {
     return (

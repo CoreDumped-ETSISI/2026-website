@@ -1,35 +1,33 @@
-import { Button, Container, Stack } from "@mantine/core";
+import {Button, Container, Stack} from "@mantine/core";
 import TerminalTypingText from "../../components/Animaciones/TerminalTypingTitle";
-import { useState } from "react";
-import { T } from "../../i18n/lang";
-import { Link } from "react-router-dom";
+import {useState} from "react";
+import {T} from "../../i18n/lang";
+import {Link} from "react-router-dom";
 
 
 function Home() {
     const [typingDone, setTypingDone] = useState(false);
-    return (
-        <div id="home-page">
+    return (<div id="home-page">
             <Container size="lg" py="xl" mih="calc(100dvh - 70px)"
-                style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    textAlign: "center",
-                }}>
+                       style={{
+                           display: "flex",
+                           flexDirection: "column",
+                           justifyContent: "center",
+                           alignItems: "center",
+                           textAlign: "center",
+                       }}>
                 <Stack gap="md" align="center">
 
                     <TerminalTypingText
                         user="root"
                         host="coredumped"
-                        text=":~$ initializing system... access granted."
                         speed={35}
                         onComplete={() => setTypingDone(true)}
-                    />
-                    <span />
+                    >:~$ initializing system... access granted.</TerminalTypingText>
+                    <span/>
                 </Stack>
                 <Stack gap="md" mt="md" align="center">
-                    <span />
+                    <span/>
                     <Button
                         bg="var(--terminal-text)"
                         h="clamp(64px, 9vw, 110px)"
@@ -53,8 +51,7 @@ function Home() {
                     }
                 `}</style>
             </Container>
-        </div>
-    );
+        </div>);
 }
 
 export default Home;

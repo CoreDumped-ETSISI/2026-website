@@ -1,5 +1,9 @@
+/* El título se encarga del espacio con lo que viene debajo,
+   así todas las páginas quedan iguales. */
 .root {
-    font-family: monospace;
+    display: block;
+    margin: 0 0 2rem;
+    font-family: 'Victor Mono', monospace !important;
     color: var(--terminal-text);
 }
 
@@ -31,10 +35,20 @@
 }
 
 @keyframes blink {
-    0%, 49% { opacity: 1; }
-    50%, 100% { opacity: 0; }
+
+    0%,
+    49% {
+        opacity: 1;
+    }
+
+    50%,
+    100% {
+        opacity: 0;
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .cursor { animation: none; }
+    .cursor {
+        animation: none;
+    }
 }

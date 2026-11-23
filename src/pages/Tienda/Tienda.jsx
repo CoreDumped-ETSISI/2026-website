@@ -18,7 +18,7 @@ function Tienda() {
     return (
         <div id="tienda-page">
             <Container size="xl" py="xl" pb={120}>
-                <TerminalTypingTitle order={1} mb="xl">
+                <TerminalTypingTitle>
                     <T>Tienda</T>
                 </TerminalTypingTitle>
 

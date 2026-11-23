@@ -161,6 +161,8 @@ function TerminalTyper({ children, user = "", host = "", speed = 50, onComplete,
         <Title
             component="span"
             className={classes.root}
+            // order={2}
+            size={31}
             aria-label={`${user}${hasPrompt ? "@" : ""}${host}${text}`}
         >
             <span aria-hidden="true">

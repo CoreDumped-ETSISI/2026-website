@@ -171,7 +171,7 @@
 }
 
 
-.navbar-logo>.cursor {
+.navbar-logo>.cursor-icon {
   color: #77d143;
   animation: blink 1s step-start infinite;
 }

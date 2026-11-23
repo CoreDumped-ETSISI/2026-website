@@ -1,0 +1,9 @@
+/* Estilos por defecto de UseSvg.
+   :where() deja la especificidad a 0, así cualquier regla de tu CSS
+   (incluidos :hover) los sobrescribe sin pelearse. */
+:where(.use-svg) {
+    display: inline-block;
+    flex-shrink: 0;
+    width: 2rem;
+    height: 2rem;
+}

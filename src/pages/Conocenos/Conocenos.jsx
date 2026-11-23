@@ -1,8 +1,8 @@
-import {Container, Modal, Stack, Text, Title, UnstyledButton} from "@mantine/core";
-import {useState} from "react";
+import { Container, Modal, Stack, Text, Title, UnstyledButton } from "@mantine/core";
+import { useState } from "react";
 import Reveal from "../../components/Animaciones/Reveal";
 import TerminalTypingTitle from "../../components/Animaciones/TerminalTypingTitle";
-import {msg, T, useT} from "../../i18n/lang";
+import { msg, T, useT } from "../../i18n/lang";
 import styles from "./Conocenos.module.css";
 
 import bajoLluvia from "../../../assets/verde/bajolalluvia.webp";
@@ -33,7 +33,7 @@ const SECCIONES = [
     },
 ];
 
-function Galeria({images}) {
+function Galeria({ images }) {
     const t = useT();
     const [selected, setSelected] = useState(null);
     const shown = images.slice(0, 6);
@@ -50,44 +50,72 @@ function Galeria({images}) {
                         onClick={() => setSelected(src)}
                         aria-label={t("Ampliar imagen")}
                     >
-                        <img src={src} alt="" loading="lazy"/>
+                        <img src={src} alt="" loading="lazy" />
                     </UnstyledButton>
                 ))}
             </div>
 
-            <Modal opened={selected !== null} onClose={() => setSelected(null)} size="auto" centered>
+            {/* Modal de Mantine con el aspecto del Dialog de la tienda:
+                fondo oscuro, sin caja blanca ni cabecera, solo la imagen. */}
+            <Modal
+                opened={selected !== null}
+                onClose={() => setSelected(null)}
+                size="auto"
+                centered
+                withCloseButton={false}
+                padding={0}
+                radius="md"
+                overlayProps={{ color: "#000", backgroundOpacity: 0.7, blur: 2 }}
+                transitionProps={{ transition: "pop", duration: 200 }}
+                styles={{
+                    content: { background: "transparent", boxShadow: "none", overflow: "visible" },
+                    body: { padding: 0, display: "flex" },
+                }}
+            >
                 {selected && (
-                    <img src={selected} alt="" style={{maxWidth: "85dvw", maxHeight: "85dvh", borderRadius: 8}}/>
+                    <img
+                        src={selected}
+                        alt=""
+                        onClick={() => setSelected(null)}
+                        style={{
+                            display: "block",
+                            maxWidth: "85dvw",
+                            maxHeight: "85dvh",
+                            borderRadius: 8,
+                            boxShadow: "0 20px 60px rgba(0, 0, 0, 0.5)",
+                            cursor: "zoom-out",
+                        }}
+                    />
                 )}
             </Modal>
         </>
     );
 }
 
-function Seccion({title, text, images, from, reverse}) {
+function Seccion({ title, text, images, from, reverse }) {
     const t = useT();
     return (
         <section className={`${styles.section} ${reverse ? styles.reverse : ""}`}>
-            <Reveal from={from} style={{width: "100%"}}>
+            <Reveal from={from} style={{ width: "100%" }}>
                 <div className={styles.sectionInner}>
                     <Stack gap="md" className={styles.text}>
                         <Title order={2}>{t(title)}</Title>
                         <Text size="lg">{t(text)}</Text>
                     </Stack>
-                    <Galeria images={images}/>
+                    <Galeria images={images} />
                 </div>
             </Reveal>
         </section>
     );
 }
 
- function Conocenos() {
+function Conocenos() {
     const t = useT();
     return (
-        <Container size="xl" pb={120} className={styles.page}>
+        <Container size="xl" py="xl" pb={120} className={styles.page}>
             <TerminalTypingTitle><T>Conócenos</T></TerminalTypingTitle>
             {SECCIONES.map((s, i) => (
-                <Seccion key={s.title} {...s} reverse={i % 2 === 1}/>
+                <Seccion key={s.title} {...s} reverse={i % 2 === 1} />
             ))}
         </Container>
     );

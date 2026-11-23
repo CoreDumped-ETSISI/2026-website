@@ -72,7 +72,7 @@ body {
 
 /* Colores base extraídos del logo */
 :root {
-  --color-white: #ffffff;
+  --color-white: #eeeeee;
   --color-black: #000000;
   --color-green: #5fb030;
   --color-green-light: #7bd14a;

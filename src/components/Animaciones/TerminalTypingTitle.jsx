@@ -22,7 +22,7 @@ function extract(children, t, found) {
         .join("");
 }
 
-function TerminalTyper({ children, user = "", host = "", speed = 50, onComplete }) {
+function TerminalTyper({ children, user = "", host = "", speed = 50, onComplete, typingDone }) {
     const t = useT();
 
     const found = { current: false };
@@ -33,6 +33,10 @@ function TerminalTyper({ children, user = "", host = "", speed = 50, onComplete 
     const [displayedUser, setDisplayedUser] = useState("");
     const [displayedHost, setDisplayedHost] = useState("");
     const [displayedText, setDisplayedText] = useState("");
+    const [typingText, setTypingText] = useState(":~$ ");
+    const [tempTypingText, setTempTypingText] = useState("");
+    const [cursorPosition, setCursorPosition] = useState(4);
+
     const onCompleteRef = useRef(onComplete);
 
     useEffect(() => {
@@ -82,6 +86,67 @@ function TerminalTyper({ children, user = "", host = "", speed = 50, onComplete 
 
     const hasPrompt = user || host;
 
+    const handleKeyDown = (event) => {
+        console.log(event.key);
+
+        if (event.key === "Backspace") {
+            event.preventDefault();
+            if (cursorPosition > 4) {
+                setTypingText((prev) => prev.slice(0, cursorPosition - 1) + prev.slice(cursorPosition));
+                setCursorPosition((prev) => prev - 1);
+            }
+            return;
+        }
+
+        if (event.key === "Delete") {
+            event.preventDefault();
+            if (cursorPosition < typingText.length) {
+                setTypingText((prev) => prev.slice(0, cursorPosition) + prev.slice(cursorPosition + 1));
+            }
+            return;
+        }
+
+        if (event.key === "Enter") {
+            event.preventDefault();
+            console.log("acción a definir");
+            setTypingText(":~$ ");
+            setCursorPosition(4);
+            return;
+        }
+
+
+        if (event.key === "Alt" || event.key === "AltGraph" || event.key === "Control" || event.key === "Shift" || event.key === "Meta") {
+            event.preventDefault();
+            console.log(event.key);
+            return;
+        }
+
+
+        if (event.key.startsWith("Arrow")) {
+            if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+                event.preventDefault();
+                setCursorPosition((position) => event.key === "ArrowLeft"
+                    ? Math.max(4, position - 1)
+                    : Math.min(typingText.length, position + 1));
+            }
+            return;
+        }
+
+        if (event.key.length === 1) {
+            setTypingText((prev) => prev.slice(0, cursorPosition) + event.key + prev.slice(cursorPosition));
+            setCursorPosition((prev) => prev + event.key.length);
+        }
+
+    }
+
+    useEffect(() => {
+        if (!typingDone) return;
+        window.addEventListener("keydown", handleKeyDown);
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown);
+        };
+    }, [typingText, cursorPosition, typingDone]);
+
     return (
         <Title
             component="span"
@@ -93,7 +158,21 @@ function TerminalTyper({ children, user = "", host = "", speed = 50, onComplete 
                 {hasPrompt && <span className={classes.at}>@</span>}
                 <span className={classes.host}>{displayedHost}</span>
                 <span className={classes.text}>{displayedText}</span>
-                <span className={classes.cursor} />
+                {typingText.length <= 4 && <span className={classes.cursor} />}
+
+                {typingText.length > 4 && (
+                    <>
+                        <br />
+                        <span className={classes.user}>{displayedUser}</span>
+                        {hasPrompt && <span className={classes.at}>@</span>}
+                        <span className={classes.host}>{displayedHost}</span>
+                        <span className={classes.text}>
+                            {typingText.slice(0, cursorPosition)}
+                            <span className={classes.cursor} />
+                            {typingText.slice(cursorPosition)}
+                        </span>
+                    </>
+                )}
             </span>
         </Title>
     );

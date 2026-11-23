@@ -1,9 +1,10 @@
+import { T, msg, useT } from "../../../../i18n/lang";
 import useStepLoop from "../../useStepLoop";
 
 const actividades = [
-    { titulo: "CTFs", texto: "Competimos en equipo en retos de seguridad." },
-    { titulo: "Hack The Box", texto: "Practicamos con máquinas cada semana." },
-    { titulo: "Writeups", texto: "Documentamos y compartimos cómo las resolvemos." },
+    { titulo: "CTFs", texto: msg("Competimos en equipo en retos de seguridad.") },
+    { titulo: "Hack The Box", texto: msg("Practicamos con máquinas cada semana.") },
+    { titulo: "Writeups", texto: msg("Documentamos y compartimos cómo las resolvemos.") },
 ];
 
 const log = [
@@ -11,28 +12,31 @@ const log = [
     { tipo: "out", texto: "22/tcp ssh · 80/tcp http" },
     { tipo: "ok", texto: "user.txt" },
     { tipo: "ok", texto: "root.txt" },
-    { tipo: "info", texto: "writeup publicado" },
+    { tipo: "info", texto: msg("writeup publicado") },
 ];
 
 const prefijo = { cmd: "$", out: " ", ok: "✓", info: "→" };
 
 function Cibercore() {
+    const t = useT();
     const visibles = useStepLoop(log.length, 700);
 
     return (
         <section id="cibercore" className="depto" aria-labelledby="cibercore-title">
             <div className="depto__content">
-                <span className="depto__index">01 — Ciberseguridad</span>
+                <span className="depto__index">01 — <T>Ciberseguridad</T></span>
                 <h1 id="cibercore-title">Cibercore</h1>
                 <p>
-                    La sección de ciberseguridad de CoreDumped. Aprendemos rompiendo
-                    cosas, de forma legal, y lo contamos.
+                    <T>
+                        La sección de ciberseguridad de CoreDumped. Aprendemos rompiendo
+                        cosas, de forma legal, y lo contamos.
+                    </T>
                 </p>
                 <ul className="depto__list">
                     {actividades.map(({ titulo, texto }) => (
                         <li key={titulo}>
                             <strong>{titulo}</strong>
-                            <span>{texto}</span>
+                            <span>{t(texto)}</span>
                         </li>
                     ))}
                 </ul>
@@ -42,7 +46,7 @@ function Cibercore() {
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    Ver nuestros writeups <span aria-hidden="true">→</span>
+                    <T>Ver nuestros writeups</T> <span aria-hidden="true">→</span>
                 </a>
             </div>
 
@@ -55,7 +59,7 @@ function Cibercore() {
                     {log.slice(0, visibles).map(({ tipo, texto }, i) => (
                         <li key={i} className={`terminal-log__line is-${tipo}`}>
                             <span>{prefijo[tipo]}</span>
-                            {texto}
+                            {t(texto)}
                         </li>
                     ))}
                     <li className="terminal-log__line is-cmd">

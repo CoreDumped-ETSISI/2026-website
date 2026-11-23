@@ -23,6 +23,7 @@ function Home() {
                     host="coredumped"
                     speed={35}
                     onComplete={() => setTypingDone(true)}
+                    typingDone={typingDone}
                 >:~$ initializing system... access granted.</TerminalTypingText>
                 <span />
             </Stack>

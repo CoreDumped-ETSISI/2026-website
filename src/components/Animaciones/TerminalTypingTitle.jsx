@@ -122,6 +122,7 @@ function TerminalTyper({ children, user = "", host = "", speed = 50, onComplete,
         }
 
 
+
         if (event.key.startsWith("Arrow")) {
             if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
                 event.preventDefault();
@@ -129,6 +130,13 @@ function TerminalTyper({ children, user = "", host = "", speed = 50, onComplete,
                     ? Math.max(4, position - 1)
                     : Math.min(typingText.length, position + 1));
             }
+            return;
+        }
+
+        if (event.key === " ") {
+            event.preventDefault();
+            setTypingText((prev) => prev.slice(0, cursorPosition) + event.key + prev.slice(cursorPosition));
+            setCursorPosition((prev) => prev + event.key.length);
             return;
         }
 
@@ -140,6 +148,8 @@ function TerminalTyper({ children, user = "", host = "", speed = 50, onComplete,
     }
 
     useEffect(() => {
+        console.log(typingText);
+
         if (!typingDone) return;
         window.addEventListener("keydown", handleKeyDown);
         return () => {
@@ -166,7 +176,7 @@ function TerminalTyper({ children, user = "", host = "", speed = 50, onComplete,
                         <span className={classes.user}>{displayedUser}</span>
                         {hasPrompt && <span className={classes.at}>@</span>}
                         <span className={classes.host}>{displayedHost}</span>
-                        <span className={classes.text}>
+                        <span className={classes.text} style={{ whiteSpace: "pre-wrap" }}>
                             {typingText.slice(0, cursorPosition)}
                             <span className={classes.cursor} />
                             {typingText.slice(cursorPosition)}

@@ -1,115 +1,279 @@
-HEAD #departamentos-page {
+#departamentos-page {
     min-width: 100dvw;
     min-height: 100dvh;
+}
 
-    &>div {
-        display: flex;
-        position: relative;
-        align-items: center;
-        justify-content: center;
-        min-height: 40dvh;
-        padding: clamp(2rem, 6vw, 4rem) clamp(1rem, 4vw, 2rem);
-        gap: 1rem;
-        text-align: center;
-        box-sizing: border-box;
-    }
-
-    &>div#disegno>div {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 1.25rem;
-        width: 100%;
-    }
-
-    &>div>h1 {
-        font-size: clamp(2rem, 5vw, 2.75rem);
-        font-weight: 700;
-        margin: 0;
-        line-height: 1.1;
-    }
-
-    &>div p {
-        font-size: clamp(1rem, 2.5vw, 1.2rem);
-        line-height: 1.6;
-        max-width: 600px;
-        width: 100%;
-        margin: 0;
-    }
-
-    &>div a {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        text-decoration: none;
-        align-self: center;
-        max-width: 100%;
-        border: 2px solid var(--text-muted);
-        filter: drop-shadow(3px 3px 1px var(--text-muted));
-        border-radius: 7px;
-        background: color-mix(in srgb, var(--text-muted) 100%, #fff 90%);
-        color: color-mix(in srgb, #0d2300 100%, #fff 10%);
-        font-weight: 700;
-        padding: 0.75rem 1.5rem;
-        text-align: center;
-        transition: transform 0.2s ease-in-out, filter 0.2s ease-in-out, color 0.3s ease;
-    }
-
-    &>div a:hover {
-        transform: scale(1.05);
-        filter: drop-shadow(-3px -3px 1px var(--text-muted));
-        color: color-mix(in srgb, #0d2300 100%, #fff 20%);
-    }
-
-    &>div a:active {
-        filter: drop-shadow(-3px -3px 1px var(--text-muted)) drop-shadow(3px 3px 1px var(--text-muted));
-        transform: scale(0.95);
-    }
-
-    & .cibercore-htb-logo {
-        width: 20dvw;
-        margin-bottom: 20px;
-        position: absolute;
-        left: 10%;
-        top: 35%;
-        transform: rotate(-30deg);
-        filter: drop-shadow(1px 0px 0px #000) drop-shadow(-1px 3px 0px #000) drop-shadow(-1px 1px 0px #000) drop-shadow(1px -1px 0px #000);
-    }
+#departamentos-page>div {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    min-height: 40dvh;
+    padding: clamp(2rem, 6vw, 4rem) clamp(1rem, 4vw, 2rem);
+    gap: 1rem;
+    text-align: center;
+    box-sizing: border-box;
 }
 
 
-@media (max-width: 48em) {
-    #departamentos-page {
+/* ---------- Secciones de departamento ---------- */
 
-        & #cibercore {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 1rem;
-        }
+#departamentos-page>.depto {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(260px, 0.9fr);
+    align-items: center;
+    gap: clamp(2rem, 6vw, 5rem);
+    width: min(1080px, calc(100% - 3rem));
+    margin: 0 auto;
+    padding: clamp(3rem, 8vw, 6rem) 0;
+    text-align: left;
+}
 
-        & .cibercore-htb-logo {
-            width: 40dvw;
-            transform: rotate(0deg);
-            position: relative;
-            left: 0;
-            top: 0;
-        }
+#departamentos-page>.depto+.depto {
+    border-top: 1px solid var(--border);
+}
+
+#departamentos-page>.depto--reverse>.depto__visual {
+    order: -1;
+}
+
+.depto__content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.1rem;
+}
+
+.depto__index {
+    color: var(--accent);
+    font-family: monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.depto h1 {
+    margin: 0;
+    font-size: clamp(2.4rem, 5.5vw, 4rem);
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+}
+
+.depto p {
+    max-width: 32rem;
+    margin: 0;
+    color: var(--text-muted);
+    font-size: clamp(1.02rem, 1.8vw, 1.15rem);
+    line-height: 1.6;
+}
+
+.depto__list {
+    display: grid;
+    gap: 0;
+    width: 100%;
+    max-width: 32rem;
+    margin: 0.5rem 0;
+    padding: 0;
+    list-style: none;
+}
+
+.depto__list li {
+    display: grid;
+    grid-template-columns: 8.5rem 1fr;
+    gap: 1rem;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.95rem;
+}
+
+.depto__list li:first-child {
+    border-top: 1px solid var(--border);
+}
+
+.depto__list strong {
+    color: var(--text);
+    font-weight: 600;
+}
+
+.depto__list span {
+    color: var(--text-muted);
+}
+
+.depto__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding-bottom: 0.2rem;
+    border-bottom: 1px solid currentColor;
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s ease, gap 0.2s ease;
+}
+
+.depto__cta:hover {
+    gap: 0.85rem;
+    color: var(--accent-hover);
+}
+
+/* ---------- Ventana visual (común) ---------- */
+
+.depto__visual {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    aspect-ratio: 5 / 4;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--surface);
+    box-shadow: 0 18px 50px color-mix(in srgb, #000 12%, transparent);
+}
+
+.depto__visual-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.7rem 0.9rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-muted);
+    font-family: monospace;
+    font-size: 0.72rem;
+}
+
+.depto__visual-bar i {
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 50%;
+    background: var(--border);
+}
+
+.depto__visual-bar span {
+    margin-left: auto;
+}
+
+/* ---------- Terminal (Cibercore) ---------- */
+
+.terminal-log {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    margin: 0;
+    padding: 1.2rem 1.1rem;
+    list-style: none;
+    font-family: monospace;
+    font-size: clamp(0.8rem, 1.4vw, 0.92rem);
+    color: var(--text);
+}
+
+.terminal-log__line {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    animation: depto-fade-in 0.3s ease both;
+}
+
+.terminal-log__line>span {
+    width: 1ch;
+    color: var(--text-muted);
+}
+
+.terminal-log__line.is-out {
+    color: var(--text-muted);
+}
+
+.terminal-log__line.is-ok>span,
+.terminal-log__line.is-info {
+    color: var(--accent);
+}
+
+.terminal-log__cursor {
+    width: 0.55rem;
+    height: 1.05em;
+    background: var(--accent);
+    animation: blink 0.9s steps(1) infinite;
+}
+
+/* ---------- Impresora (Disegno) ---------- */
+
+.print {
+    flex: 1;
+    width: 100%;
+    min-height: 0;
+    padding: 0.5rem 1rem 1rem;
+    box-sizing: border-box;
+}
+
+.print__bed {
+    stroke: var(--border);
+    stroke-width: 2;
+    stroke-linecap: round;
+}
+
+.print__layer {
+    fill: color-mix(in srgb, var(--accent) 80%, transparent);
+    animation: depto-layer 0.35s ease-out both;
+    transform-box: fill-box;
+    transform-origin: center;
+}
+
+.print__head {
+    transition: transform 0.35s ease;
+}
+
+.print__nozzle {
+    fill: var(--text-muted);
+    animation: depto-nozzle 0.9s ease-in-out infinite alternate;
+}
+
+@keyframes depto-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+}
+
+@keyframes depto-layer {
+    from {
+        opacity: 0;
+        transform: scaleX(0.2);
+    }
+}
+
+@keyframes depto-nozzle {
+    from {
+        transform: translateX(calc(var(--recorrido) * -1));
     }
 
-    @media (max-width: 48em) {
-        #departamentos {
-            &>div {
-                min-height: auto;
-                padding: 2.5rem 1rem;
-            }
+    to {
+        transform: translateX(var(--recorrido));
+    }
+}
 
-            &>div a {
-                width: 100%;
-                max-width: 320px;
-                padding: 0.85rem 1rem;
-            }
-        }
+@media (prefers-reduced-motion: reduce) {
+
+    .terminal-log__line,
+    .print__layer,
+    .print__nozzle,
+    .terminal-log__cursor {
+        animation: none;
+    }
+}
+
+@media (max-width: 48em) {
+    #departamentos-page>.depto {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+        width: calc(100% - 2.5rem);
+    }
+
+    #departamentos-page>.depto--reverse>.depto__visual {
+        order: 0;
+    }
+
+    .depto__list li {
+        grid-template-columns: 1fr;
+        gap: 0.2rem;
     }
 }

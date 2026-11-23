@@ -1,6 +1,6 @@
 import { Container, Text, Anchor, Stack } from "@mantine/core";
-import {T} from "../../../i18n/lang";
-import {Link} from "react-router-dom";
+import { T } from "../../../i18n/lang";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
     return (
@@ -11,8 +11,11 @@ export default function Footer() {
                         © {new Date().getFullYear()} CoreDu2mped
                     </Text>
                     <Text size="xs" c="dimmed">
-                        <T>Desarrollador</T>
+                        <T>Desarrolladores</T>
                         <Link to="https://github.com/Hacking-jack">@Hacking-jack</Link>
+                        &nbsp;<T>y</T>&nbsp;
+                        <Link to="https://github.com/Nicowooow">@Nicowooow</Link>
+
                     </Text>
                     <Text size="xs" c="dimmed">
                         <T>Licenciado bajo la Apache License, Version 2.0.</T>

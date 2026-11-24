@@ -1,24 +1,6 @@
+/* Contacto usa las piezas comunes de src/styles/ui.css
+   (lead, eyebrow, card-grid, info-card, pill-button, window, terminal-log). */
+
 #contacto-page {
-
-    & .contact-list {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-    }
-
-    & .contact-list>a {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.75rem;
-        width: fit-content;
-        color: var(--text);
-        text-decoration: none;
-        transition: color 0.2s ease;
-        transition: transform 0.3s ease-in-out;
-    }
-
-    & .contact-list>a:hover {
-        color: var(--accent);
-        transform: scale(1.2);
-    }
+    min-height: calc(100dvh - 70px);
 }

@@ -1,186 +1,6 @@
-/* ---------- Secciones de departamento ---------- */
-
-#departamentos-page .depto {
-    display: grid;
-    grid-template-columns: minmax(0, 1.1fr) minmax(260px, 0.9fr);
-    align-items: center;
-    gap: clamp(2rem, 6vw, 5rem);
-    width: 100%;
-    margin: 0;
-    padding: clamp(2.5rem, 7vw, 5rem) 0;
-    text-align: left;
-}
-
-#departamentos-page .depto:first-of-type {
-    padding-top: 0;
-}
-
-#departamentos-page .depto+.depto {
-    border-top: 1px solid var(--border);
-}
-
-#departamentos-page .depto--reverse>.depto__visual {
-    order: -1;
-}
-
-.depto__content {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1.1rem;
-}
-
-.depto__index {
-    color: var(--accent);
-    font-family: monospace;
-    font-size: 0.8rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-}
-
-.depto h1 {
-    margin: 0;
-    font-size: clamp(2.4rem, 5.5vw, 4rem);
-    line-height: 1.05;
-    letter-spacing: -0.04em;
-}
-
-.depto p {
-    max-width: 32rem;
-    margin: 0;
-    color: var(--text-muted);
-    font-size: clamp(1.02rem, 1.8vw, 1.15rem);
-    line-height: 1.6;
-}
-
-.depto__list {
-    display: grid;
-    gap: 0;
-    width: 100%;
-    max-width: 32rem;
-    margin: 0.5rem 0;
-    padding: 0;
-    list-style: none;
-}
-
-.depto__list li {
-    display: grid;
-    grid-template-columns: 8.5rem 1fr;
-    gap: 1rem;
-    padding: 0.8rem 0;
-    border-bottom: 1px solid var(--border);
-    font-size: 0.95rem;
-}
-
-.depto__list li:first-child {
-    border-top: 1px solid var(--border);
-}
-
-.depto__list strong {
-    color: var(--text);
-    font-weight: 600;
-}
-
-.depto__list span {
-    color: var(--text-muted);
-}
-
-.depto__cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding-bottom: 0.2rem;
-    border-bottom: 1px solid currentColor;
-    color: var(--accent);
-    font-weight: 600;
-    text-decoration: none;
-    transition: color 0.2s ease, gap 0.2s ease;
-}
-
-.depto__cta:hover {
-    gap: 0.85rem;
-    color: var(--accent-hover);
-}
-
-/* ---------- Ventana visual (común) ---------- */
-
-.depto__visual {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    aspect-ratio: 5 / 4;
-    overflow: hidden;
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    background: var(--surface);
-    box-shadow: 0 18px 50px color-mix(in srgb, #000 12%, transparent);
-}
-
-.depto__visual-bar {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    padding: 0.7rem 0.9rem;
-    border-bottom: 1px solid var(--border);
-    color: var(--text-muted);
-    font-family: monospace;
-    font-size: 0.72rem;
-}
-
-.depto__visual-bar i {
-    width: 0.55rem;
-    height: 0.55rem;
-    border-radius: 50%;
-    background: var(--border);
-}
-
-.depto__visual-bar span {
-    margin-left: auto;
-}
-
-/* ---------- Terminal (Cibercore) ---------- */
-
-.terminal-log {
-    display: flex;
-    flex-direction: column;
-    gap: 0.55rem;
-    margin: 0;
-    padding: 1.2rem 1.1rem;
-    list-style: none;
-    font-family: monospace;
-    font-size: clamp(0.8rem, 1.4vw, 0.92rem);
-    color: var(--text);
-}
-
-.terminal-log__line {
-    display: flex;
-    align-items: center;
-    gap: 0.7rem;
-    animation: depto-fade-in 0.3s ease both;
-}
-
-.terminal-log__line>span {
-    width: 1ch;
-    color: var(--text-muted);
-}
-
-.terminal-log__line.is-out {
-    color: var(--text-muted);
-}
-
-.terminal-log__line.is-ok>span,
-.terminal-log__line.is-info {
-    color: var(--accent);
-}
-
-.terminal-log__cursor {
-    width: 0.55rem;
-    height: 1.05em;
-    background: var(--accent);
-    animation: blink 0.9s steps(1) infinite;
-}
-
-/* ---------- Impresora (Disegno) ---------- */
+/* Departamentos usa las piezas comunes de src/styles/ui.css
+   (feature, eyebrow, lead, detail-list, arrow-link, window, terminal-log).
+   Aquí solo va lo propio: la impresora animada de Disegno. */
 
 .print {
     flex: 1;
@@ -190,43 +10,36 @@
     box-sizing: border-box;
 }
 
-.print__bed {
+.print-bed {
     stroke: var(--border);
     stroke-width: 2;
     stroke-linecap: round;
 }
 
-.print__layer {
+.print-layer {
     fill: color-mix(in srgb, var(--accent) 80%, transparent);
-    animation: depto-layer 0.35s ease-out both;
+    animation: print-layer 0.35s ease-out both;
     transform-box: fill-box;
     transform-origin: center;
 }
 
-.print__head {
+.print-head {
     transition: transform 0.35s ease;
 }
 
-.print__nozzle {
+.print-nozzle {
     fill: var(--text-muted);
-    animation: depto-nozzle 0.9s ease-in-out infinite alternate;
+    animation: print-nozzle 0.9s ease-in-out infinite alternate;
 }
 
-@keyframes depto-fade-in {
-    from {
-        opacity: 0;
-        transform: translateY(4px);
-    }
-}
-
-@keyframes depto-layer {
+@keyframes print-layer {
     from {
         opacity: 0;
         transform: scaleX(0.2);
     }
 }
 
-@keyframes depto-nozzle {
+@keyframes print-nozzle {
     from {
         transform: translateX(calc(var(--recorrido) * -1));
     }
@@ -238,26 +51,8 @@
 
 @media (prefers-reduced-motion: reduce) {
 
-    .terminal-log__line,
-    .print__layer,
-    .print__nozzle,
-    .terminal-log__cursor {
+    .print-layer,
+    .print-nozzle {
         animation: none;
-    }
-}
-
-@media (max-width: 48em) {
-    #departamentos-page .depto {
-        grid-template-columns: 1fr;
-        gap: 2.5rem;
-    }
-
-    #departamentos-page .depto--reverse>.depto__visual {
-        order: 0;
-    }
-
-    .depto__list li {
-        grid-template-columns: 1fr;
-        gap: 0.2rem;
     }
 }

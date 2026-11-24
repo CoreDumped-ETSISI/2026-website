@@ -1,4 +1,5 @@
 import { T, msg, useT } from "../../../../i18n/lang";
+import Window from "../../../../components/ui/Window";
 import useStepLoop from "../../useStepLoop";
 
 const actividades = [
@@ -22,17 +23,17 @@ function Cibercore() {
     const visibles = useStepLoop(log.length, 700);
 
     return (
-        <section id="cibercore" className="depto" aria-labelledby="cibercore-title">
-            <div className="depto__content">
-                <span className="depto__index">01 — <T>Ciberseguridad</T></span>
-                <h1 id="cibercore-title">Cibercore</h1>
-                <p>
+        <section id="cibercore" className="feature" aria-labelledby="cibercore-title">
+            <div className="feature-info">
+                <span className="eyebrow">01 — <T>Ciberseguridad</T></span>
+                <h1 id="cibercore-title" className="feature-title">Cibercore</h1>
+                <p className="lead">
                     <T>
                         La sección de ciberseguridad de CoreDumped. Aprendemos rompiendo
                         cosas, de forma legal, y lo contamos.
                     </T>
                 </p>
-                <ul className="depto__list">
+                <ul className="detail-list">
                     {actividades.map(({ titulo, texto }) => (
                         <li key={titulo}>
                             <strong>{titulo}</strong>
@@ -41,7 +42,7 @@ function Cibercore() {
                     ))}
                 </ul>
                 <a
-                    className="depto__cta"
+                    className="arrow-link"
                     href="https://upm-1.gitbook.io/cybercore-writeups"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -50,24 +51,20 @@ function Cibercore() {
                 </a>
             </div>
 
-            <div className="depto__visual depto__visual--terminal" aria-hidden="true">
-                <div className="depto__visual-bar">
-                    <i /><i /><i />
-                    <span>cybercore@lab</span>
-                </div>
+            <Window title="cybercore@lab" className="media" aria-hidden="true">
                 <ol className="terminal-log">
                     {log.slice(0, visibles).map(({ tipo, texto }, i) => (
-                        <li key={i} className={`terminal-log__line is-${tipo}`}>
+                        <li key={i} className={`is-${tipo}`}>
                             <span>{prefijo[tipo]}</span>
                             {t(texto)}
                         </li>
                     ))}
-                    <li className="terminal-log__line is-cmd">
+                    <li className="is-cmd">
                         <span>$</span>
-                        <b className="terminal-log__cursor" />
+                        <b className="terminal-cursor" />
                     </li>
                 </ol>
-            </div>
+            </Window>
         </section>
     );
 }

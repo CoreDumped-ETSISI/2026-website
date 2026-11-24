@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { T, msg, useT } from "../../../../i18n/lang";
+import Window from "../../../../components/ui/Window";
 import useStepLoop from "../../useStepLoop";
 
 const actividades = [
@@ -20,17 +21,17 @@ function Disegno() {
     const terminado = impresas === capas.length;
 
     return (
-        <section id="disegno" className="depto depto--reverse" aria-labelledby="disegno-title">
-            <div className="depto__content">
-                <span className="depto__index">02 — <T>Diseño e impresión 3D</T></span>
-                <h1 id="disegno-title"><T>Diseño que toma forma</T></h1>
-                <p>
+        <section id="disegno" className="feature reverse" aria-labelledby="disegno-title">
+            <div className="feature-info">
+                <span className="eyebrow">02 — <T>Diseño e impresión 3D</T></span>
+                <h1 id="disegno-title" className="feature-title"><T>Diseño que toma forma</T></h1>
+                <p className="lead">
                     <T>
                         El equipo de diseño de CoreDumped. Convertimos ideas en objetos
                         reales que puedes tocar.
                     </T>
                 </p>
-                <ul className="depto__list">
+                <ul className="detail-list">
                     {actividades.map(({ titulo, texto }) => (
                         <li key={titulo}>
                             <strong>{t(titulo)}</strong>
@@ -38,22 +39,22 @@ function Disegno() {
                         </li>
                     ))}
                 </ul>
-                <Link className="depto__cta" to="/tienda">
+                <Link className="arrow-link" to="/tienda">
                     <T>Acércate a la tienda</T> <span aria-hidden="true">→</span>
                 </Link>
             </div>
 
-            <div className="depto__visual depto__visual--print" aria-hidden="true">
-                <div className="depto__visual-bar">
-                    <i /><i /><i />
-                    <span>{terminado ? t("pieza lista ✓") : `${t("capa")} ${impresas + 1}/${capas.length}`}</span>
-                </div>
+            <Window
+                title={terminado ? t("pieza lista ✓") : `${t("capa")} ${impresas + 1}/${capas.length}`}
+                className="media"
+                aria-hidden="true"
+            >
                 <svg className="print" viewBox="0 0 200 180">
-                    <line className="print__bed" x1="30" y1={base + 1} x2="170" y2={base + 1} />
+                    <line className="print-bed" x1="30" y1={base + 1} x2="170" y2={base + 1} />
                     {capas.slice(0, impresas).map((w, i) => (
                         <rect
                             key={i}
-                            className="print__layer"
+                            className="print-layer"
                             x={100 - w / 2}
                             y={base - (i + 1) * alto}
                             width={w}
@@ -63,17 +64,17 @@ function Disegno() {
                     ))}
                     {!terminado && (
                         <g
-                            className="print__head"
+                            className="print-head"
                             style={{ transform: `translateY(${base - (impresas + 1) * alto - 14}px)` }}
                         >
-                            <g className="print__nozzle" style={{ "--recorrido": `${ancho / 2 - 4}px` }}>
+                            <g className="print-nozzle" style={{ "--recorrido": `${ancho / 2 - 4}px` }}>
                                 <rect x="92" y="0" width="16" height="9" rx="2" />
                                 <path d="M96 9h8l-4 5z" />
                             </g>
                         </g>
                     )}
                 </svg>
-            </div>
+            </Window>
         </section>
     );
 }

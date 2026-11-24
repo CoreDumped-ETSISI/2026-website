@@ -4,6 +4,7 @@ import App from './App.jsx';
 import './index.css';
 import '@mantine/core/styles.css';
 import '@mantine/carousel/styles.css';
+import './styles/ui.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>

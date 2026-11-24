@@ -39,7 +39,7 @@ const contacts = [
         icon: "linkedin",
         label: "LinkedIn",
         value: "CoreDumped",
-        href: "https://www.linkedin.com/",
+        href: "https://www.linkedin.com/company/coredumped/",
         hint: msg("Perfil para empresas y profesionales"),
     },
     {

@@ -3,10 +3,10 @@ import { useState } from "react";
 import "./Contacto.css";
 import { msg, T, useT } from "../../i18n/lang";
 import TerminalTypingTitle from "../../components/Animaciones/TerminalTypingTitle";
-import UseSvg from "../../common/svg/UseSvg";
+import UseSvg from "../../common/Svg/UseSvg";
 import Window from "../../components/ui/Window";
 
-const SPRITE = "/svg/contacto.svg";
+const SPRITE = "/Svg/contacto.Svg";
 
 const contacts = [
     {

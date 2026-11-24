@@ -3,12 +3,12 @@
 .root {
     display: block;
     margin: 0 0 2rem;
-    font-family: 'Victor Mono', monospace !important;
+    font-family: 'Geist Pixel', monospace !important;
     color: var(--terminal-text);
 }
 
 .user {
-    color: var(--terminal-user, #af72fff3);
+    color: var(--terminal-text);
 }
 
 .at {
@@ -17,7 +17,7 @@
 }
 
 .host {
-    color: var(--terminal-host, #04b807f3);
+    color: var(--terminal-text);
 }
 
 .text {

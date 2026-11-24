@@ -9,7 +9,7 @@ import { useLang, msg } from "../../../i18n/lang"
 import logoBlack from "../../../../assets/icons/core-black-inner.svg";
 import logoWhite from "../../../../assets/icons/core-white-inner.svg";
 
-import UseSvg from "../../../common/svg/UseSvg";
+import UseSvg from "../../../common/Svg/UseSvg";
 import ThemeToggle from "../../../common/Theme/ThemeToggle";
 
 const links = [
@@ -17,8 +17,6 @@ const links = [
     { label: msg("Conócenos"), path: "/conocenos" },
     { label: msg("Tienda"), path: "/tienda" },
     { label: msg("Tablón"), path: "/tablon" },
-    { label: msg("Departamentos"), path: "/departamentos" },
-    { label: msg("Colaboradores"), path: "/colaboradores" },
     { label: msg("Contacto"), path: "/contacto" }
 ];
 

@@ -5,7 +5,7 @@
             - id="icon-NOMBRE"
             - viewBox: el del SVG original
             - los colores fijos (#000000, etc.) por currentColor
-        y úsalo con: <UseSvg icon="NOMBRE" pathSpray="/svg/contacto.svg" />
+        y úsalo con: <UseSvg icon="NOMBRE" pathSpray="/Svg/contacto.Svg" />
     -->
     <defs>
         <symbol id="icon-gmail" viewBox="0 0 24 24" fill="none">

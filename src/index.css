@@ -64,9 +64,15 @@
 }
 
 html,
-body {
+body,
+#root {
+  min-height: 100dvh;
   margin: 0;
   padding: 0;
+}
+
+html,
+body {
   font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
@@ -75,6 +81,13 @@ body {
   background: var(--bg);
   color: var(--text);
   transition: background-color .25s ease, color .25s ease;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE / Edge antiguo */
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge, Opera */
 }
 
 :root {

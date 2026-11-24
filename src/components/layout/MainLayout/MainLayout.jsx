@@ -25,21 +25,24 @@ export default function MainLayout() {
                 <T>Saltar al contenido principal</T>
             </a>
 
-
-            <AppShell padding={0} header={{ height: 70 }} footer={{ height: 120 }}>
+            <AppShell
+                padding={0}
+                header={{ height: 70 }}
+                styles={{
+                    root: { minHeight: "100dvh", display: "flex", flexDirection: "column" },
+                    main: {
+                        flex: 1,
+                        display: "flex",
+                        flexDirection: "column",
+                        minHeight: "calc(100dvh - var(--app-shell-header-height, 70px))",
+                    },
+                }}
+            >
                 <AppShell.Header>
                     <Navbar />
                 </AppShell.Header>
 
-                {/* Columna flex de al menos 100dvh: el contenido crece (flex: 1)
-                    y el footer queda siempre al final, sin quitarle espacio */}
-                <AppShell.Main
-                    style={{
-                        minHeight: "100dvh",
-                        display: "flex",
-                        flexDirection: "column",
-                    }}
-                >
+                <AppShell.Main>
                     <main
                         id="main-content"
                         tabIndex={-1}

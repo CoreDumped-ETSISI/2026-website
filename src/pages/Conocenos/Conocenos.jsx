@@ -1,5 +1,6 @@
-import { Container, Modal, Stack, Text, Title, UnstyledButton } from "@mantine/core";
+import { Container, Modal, UnstyledButton } from "@mantine/core";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import Reveal from "../../components/Animaciones/Reveal";
 import TerminalTypingTitle from "../../components/Animaciones/TerminalTypingTitle";
 import { msg, T, useT } from "../../i18n/lang";
@@ -14,20 +15,41 @@ import tallerPython from "../../../assets/morado/tallerpython.webp";
 
 const SECCIONES = [
     {
+        index: msg("El grupo"),
         title: msg("Quiénes somos"),
-        text: msg("Somos CoreDumped, un grupo de estudiantes apasionados por la tecnología."),
+        text: msg("Somos CoreDumped, un grupo de estudiantes de la ETSISI apasionados por la tecnología. Aprendemos juntos, compartimos lo que sabemos y construimos cosas por el gusto de hacerlo."),
+        items: [
+            { titulo: msg("Estudiantes"), texto: msg("De todos los cursos y grados de la escuela.") },
+            { titulo: msg("Comunidad"), texto: msg("Gente con ganas de aprender y de enseñar.") },
+            { titulo: msg("Abiertos"), texto: msg("No hace falta experiencia previa para unirse.") },
+        ],
         from: "right",
         images: [bajoLluvia, codeboost, todosSala, cartelDimension, tallerC, tallerPython],
     },
     {
+        index: msg("Actividades"),
         title: msg("Qué hacemos"),
-        text: msg("Organizamos CTFs, proyectos de hardware, diseño 3D y mucho más."),
+        text: msg("Organizamos CTFs, proyectos de hardware, diseño 3D y mucho más. Si te interesa algo, seguramente alguien del grupo ya está trasteando con ello."),
+        items: [
+            { titulo: msg("Ciberseguridad"), texto: msg("CTFs y máquinas de Hack The Box con Cibercore.") },
+            { titulo: msg("Talleres"), texto: msg("C, Python y más, impartidos por miembros.") },
+            { titulo: msg("Diseño 3D"), texto: msg("Modelamos e imprimimos piezas reales.") },
+            { titulo: msg("Eventos"), texto: msg("Charlas, competiciones y quedadas.") },
+        ],
+        cta: { to: "/departamentos", label: msg("Ver departamentos") },
         from: "left",
         images: [cartelDimension, tallerC, tallerPython, bajoLluvia, codeboost],
     },
     {
+        index: msg("Únete"),
         title: msg("Ven a conocernos"),
-        text: msg("Nos reunimos de forma regular. Pásate y colabora con nosotros."),
+        text: msg("Nos reunimos de forma regular. Pásate, conoce al grupo y colabora con nosotros en lo que más te guste."),
+        items: [
+            { titulo: msg("Dónde"), texto: "ETSISI · Campus Sur UPM" },
+            { titulo: msg("Cuándo"), texto: msg("Horario por confirmar") }, // TODO
+            { titulo: msg("Cómo"), texto: msg("Escríbenos o pásate directamente.") },
+        ],
+        cta: { to: "/contacto", label: msg("Contacta con nosotros") },
         from: "bottom",
         images: [todosSala, codeboost, bajoLluvia, tallerC],
     },
@@ -92,16 +114,32 @@ function Galeria({ images }) {
     );
 }
 
-function Seccion({ title, text, images, from, reverse }) {
+function Seccion({ numero, index, title, text, items, cta, images, from, reverse }) {
     const t = useT();
     return (
         <section className={`${styles.section} ${reverse ? styles.reverse : ""}`}>
             <Reveal from={from} style={{ width: "100%" }}>
                 <div className={styles.sectionInner}>
-                    <Stack gap="md" className={styles.text}>
-                        <Title order={2}>{t(title)}</Title>
-                        <Text size="lg">{t(text)}</Text>
-                    </Stack>
+                    <div className={`feature-info ${styles.text}`}>
+                        <span className="eyebrow">
+                            {String(numero).padStart(2, "0")} — {t(index)}
+                        </span>
+                        <h2 className="feature-title">{t(title)}</h2>
+                        <p className="lead">{t(text)}</p>
+                        <ul className="detail-list">
+                            {items.map(({ titulo, texto }) => (
+                                <li key={titulo}>
+                                    <strong>{t(titulo)}</strong>
+                                    <span>{t(texto)}</span>
+                                </li>
+                            ))}
+                        </ul>
+                        {cta && (
+                            <Link className="arrow-link" to={cta.to}>
+                                {t(cta.label)} <span aria-hidden="true">→</span>
+                            </Link>
+                        )}
+                    </div>
                     <Galeria images={images} />
                 </div>
             </Reveal>
@@ -115,7 +153,7 @@ function Conocenos() {
         <Container size="xl" py="xl" pb={120} className={styles.page}>
             <TerminalTypingTitle><T>Conócenos</T></TerminalTypingTitle>
             {SECCIONES.map((s, i) => (
-                <Seccion key={s.title} {...s} reverse={i % 2 === 1} />
+                <Seccion key={s.title} {...s} numero={i + 1} reverse={i % 2 === 1} />
             ))}
         </Container>
     );

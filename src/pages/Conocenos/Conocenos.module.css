@@ -16,6 +16,10 @@
     align-items: center;
 }
 
+/* El texto usa las piezas comunes de src/styles/ui.css
+   (feature-info, eyebrow, feature-title, lead, detail-list, arrow-link).
+   .text solo se usa para el orden en escritorio (más abajo). */
+
 /* ---------- Móvil: rejilla simple de 2 columnas ---------- */
 .collage {
     display: grid;

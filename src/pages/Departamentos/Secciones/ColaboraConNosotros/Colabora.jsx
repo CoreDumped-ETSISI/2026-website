@@ -1,22 +1,21 @@
-import { Button, Paper, Stack, Text, Title } from "@mantine/core";
 import { T } from "../../../../i18n/lang";
-
+import Window from "../../../../components/ui/Window";
 
 function Colabora() {
     return (
-        <Paper component="section" withBorder radius="md" p={{ base: "lg", sm: "xl" }} className="colabora-section">
-            <Stack gap="sm" align="center" ta="center">
-                <Title order={2}>
+        <Window title="colabora.sh" className="compact" role="region" aria-labelledby="colabora-title">
+            <div className="window-content">
+                <h2 id="colabora-title">
                     <T>Colabora con nosotros</T>
-                </Title>
-                <Text c="dimmed" maw={600}>
+                </h2>
+                <p className="lead">
                     <T>¿Te gustaría apoyar nuestras actividades o colaborar con Core Dumped? Escríbenos y cuéntanos tu propuesta.</T>
-                </Text>
-                <Button component="a" href="mailto:coredumped.etsisi@gmail.com" mt="sm">
-                    <T>Rellena este formulario</T>
-                </Button>
-            </Stack>
-        </Paper>
+                </p>
+                <a className="arrow-link" href="mailto:coredumped.etsisi@gmail.com">
+                    <T>Escríbenos</T> <span aria-hidden="true">→</span>
+                </a>
+            </div>
+        </Window>
     );
 }
 

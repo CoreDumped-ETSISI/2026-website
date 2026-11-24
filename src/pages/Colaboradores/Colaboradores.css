@@ -1,106 +1,75 @@
+/* Colaboradores usa las piezas comunes de src/styles/ui.css
+   (feature, eyebrow, lead, detail-list, window...).
+   Aquí solo va lo propio: el logo dentro de la ventana. */
+
 #colaboradores-page {
-    width: 100%;
     min-height: calc(100dvh - 70px);
+}
 
-    & .colaboradores-list {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
+#colaboradores-page .partners {
+    margin-bottom: 3rem;
+}
+
+/* Interior de la ventana del logo */
+#colaboradores-page .partner-stage {
+    position: relative;
+    display: grid;
+    place-items: center;
+    aspect-ratio: 16 / 10;
+}
+
+/* Placa clara para que los logos con sus colores se vean en ambos temas */
+#colaboradores-page .partner-logo {
+    display: grid;
+    place-items: center;
+    width: clamp(6.5rem, 14vw, 8.5rem);
+    aspect-ratio: 1;
+    border-radius: 22px;
+    background: #f4f5f3;
+    box-shadow:
+        0 0 0 1px color-mix(in srgb, var(--accent) 35%, transparent),
+        0 0 40px color-mix(in srgb, var(--accent) 25%, transparent);
+    animation: partner-float 6s ease-in-out infinite;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#colaboradores-page .partner-logo .use-svg {
+    width: 62%;
+    height: 62%;
+}
+
+/* Sello sutil que indica que colabora con la web */
+#colaboradores-page .partner-badge {
+    position: absolute;
+    right: 50%;
+    bottom: 0.8rem;
+    transform: translateX(50%);
+    color: var(--text-muted);
+    font-family: monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.04em;
+    transition: color 0.3s ease;
+}
+
+#colaboradores-page .feature:hover .partner-logo {
+    transform: scale(1.06);
+    box-shadow:
+        0 0 0 1px var(--accent),
+        0 0 60px color-mix(in srgb, var(--accent) 40%, transparent);
+}
+
+#colaboradores-page .feature:hover .partner-badge {
+    color: var(--accent);
+}
+
+@keyframes partner-float {
+    50% {
+        translate: 0 -6px;
     }
 }
 
-.colaborador-card {
-    height: 100%;
-    background: var(--surface);
-    border-color: var(--border);
-    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-
-    &.r {
-        position: relative;
-        display: flex;
-        right: 0;
-    }
-
-    &.l {
-        position: relative;
-        display: flex;
-        left: 0;
-    }
-
-    & .text {
-        font-size: 3rem;
-        transition: font-size 0.3s ease-in-out;
-    }
-
-    /* El nth-child va en la tarjeta (son las que se alternan),
-       no en .text, que siempre es el primer hijo de su div. */
-    &:nth-child(odd) :is(.text, .description) {
-        text-align: left;
-    }
-
-    &:nth-child(even) :is(.text, .description) {
-        text-align: right;
-    }
-
-
-    &:hover .text {
-        font-size: 2.5rem;
-    }
-
-    & .description {
-        width: 100%;
-        text-wrap: nowrap;
-        text-overflow: ellipsis;
-        transition: height 0.3s ease-in-out;
-    }
-
-    &:hover .description {
-        text-wrap: wrap;
-        height: auto;
-    }
-
-
-    &:hover .colaborador-logo svg {
-        width: 15rem;
-        height: 15rem;
-    }
-}
-
-.colaborador-card:hover {
-    transform: translateY(-4px);
-    border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
-    box-shadow: 0 8px 24px color-mix(in srgb, var(--accent) 12%, transparent);
-}
-
-.colaborador-logo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 110px;
-    width: fit-content;
-    padding: 0.75rem;
-    border-radius: 10px;
-    background: color-mix(in srgb, var(--surface-2) 10%, #fff);
-    border: 1px dashed var(--text);
-    max-width: 16rem;
-    max-height: 16rem;
-}
-
-.colaborador-logo svg {
-    width: 6rem;
-    height: 6rem;
-    max-width: 16rem;
-    max-height: 16rem;
-    transition: width 0.3s ease, height 0.3s ease;
-}
-
-.colabora-section {
-    background: color-mix(in srgb, var(--accent) 8%, var(--surface));
-    border-color: color-mix(in srgb, var(--accent) 25%, var(--border));
-}
-
-@media (max-width: 48em) {
-    .colaborador-logo {
-        height: 96px;
+@media (prefers-reduced-motion: reduce) {
+    #colaboradores-page .partner-logo {
+        animation: none;
     }
 }

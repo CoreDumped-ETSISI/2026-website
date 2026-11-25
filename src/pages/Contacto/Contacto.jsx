@@ -3,10 +3,10 @@ import { useState } from "react";
 import "./Contacto.css";
 import { msg, T, useT } from "../../i18n/lang";
 import TerminalTypingTitle from "../../components/Animaciones/TerminalTypingTitle";
-import UseSvg from "../../common/Svg/UseSvg";
 import Window from "../../components/ui/Window";
+import UseSvg from './../../common/Svg/UseSvg';
 
-const SPRITE = "/Svg/contacto.Svg";
+const SPRITE = "/svg/contacto.svg"; // en minúsculas: las URLs distinguen mayúsculas
 
 const contacts = [
     {

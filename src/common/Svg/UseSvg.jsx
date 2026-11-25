@@ -1,17 +1,17 @@
 import "./UseSvg.css";
 
-// Pinta un SVG guardado en public/Svg/<icon>.Svg.
+// Pinta un SVG guardado en public/svg/<icon>.svg.
 // Cada archivo contiene un <symbol id="icon-<icon>" viewBox="..."> con el dibujo,
 // así que aquí no hace falta repetir el viewBox ni los paths.
 //
-//   <UseSvg icon="htb" />                          -> /Svg/htb.Svg#icon-htb
+//   <UseSvg icon="htb" />                          -> /svg/htb.svg#icon-htb
 //   <UseSvg icon="prompt" titleSvg="Logo" />       -> accesible con título
-//   <UseSvg icon="x" pathSpray="/Svg/icons.Svg" /> -> si usas un sprite con varios símbolos
+//   <UseSvg icon="x" pathSpray="/svg/icons.svg" /> -> si usas un sprite con varios símbolos
 //   <UseSvg icon="htb" style={{ width: 48, height: 48, color: "red" }} />
 //
 // Tamaño por defecto 2rem x 2rem (en UseSvg.css, fácil de sobrescribir desde tu CSS).
 // `style` va inline: úsalo solo para cosas fijas; si quieres :hover o media queries, usa CSS.
-// El Svg lleva siempre la clase "<icon>-icon" por si necesitas animarlo desde CSS.
+// El svg lleva siempre la clase "<icon>-icon" por si necesitas animarlo desde CSS.
 // Usa fill="currentColor" en el symbol para que el icono herede el color del texto.
 function UseSvg({ icon, titleSvg, pathSpray, style, ...props }) {
     const href = `${pathSpray ?? `/svg/${icon}.svg`}#icon-${icon}`;

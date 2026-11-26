@@ -1,9 +1,7 @@
 import { useMemo, useState } from "react";
-import { useSearchParams } from "react-router-dom";
 import { Container, Select, SimpleGrid, TextInput } from "@mantine/core";
 import {
   IconBrandGithub,
-  IconEye,
   IconRefresh,
   IconRocket,
   IconSearch,
@@ -21,7 +19,6 @@ import {
   matchesCatalogView,
 } from "../../components/Cards/Proyectos/projectMeta";
 import catalogData from "../../data/projects.json";
-import { SAMPLE_PROJECTS } from "../../data/projects.sample";
 import { msg, T, useLang } from "../../i18n/lang";
 import "./Tablon.css";
 
@@ -43,13 +40,7 @@ function formatSyncDate(isoString, lang) {
 
 function Tablon() {
   const { lang, t } = useLang();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const realItems = catalogData?.items ?? [];
-  const isDemoQuery = searchParams.get("demo") === "1";
-  const [demoPreview, setDemoPreview] = useState(isDemoQuery);
-
-  const isDemoMode = realItems.length === 0 && (demoPreview || isDemoQuery);
-  const activeItems = isDemoMode ? SAMPLE_PROJECTS : realItems;
+  const activeItems = catalogData?.items ?? [];
 
   const [activeView, setActiveView] = useState("all");
   const [search, setSearch] = useState("");
@@ -104,21 +95,6 @@ function Tablon() {
     setStatusFilter(null);
     setAreaFilter(null);
     setLevelFilter(null);
-  };
-
-  const enterDemo = () => {
-    setDemoPreview(true);
-    const next = new URLSearchParams(searchParams);
-    next.set("demo", "1");
-    setSearchParams(next, { replace: true });
-  };
-
-  const exitDemo = () => {
-    setDemoPreview(false);
-    resetFilters();
-    const next = new URLSearchParams(searchParams);
-    next.delete("demo");
-    setSearchParams(next, { replace: true });
   };
 
   const boardUrl = catalogData?.project?.url || PROJECT_BOARD_URL;
@@ -195,30 +171,10 @@ function Tablon() {
                 <IconBrandGithub size={15} stroke={1.9} aria-hidden="true" />
                 <span>{t("Abrir Project Catalog en GitHub")}</span>
               </a>
-              <button
-                type="button"
-                className="pill-button"
-                onClick={enterDemo}
-                style={{ display: "inline-flex", alignItems: "center", gap: "0.35rem" }}
-              >
-                <IconEye size={14} stroke={1.8} aria-hidden="true" />
-                <span>{t("Previsualizar tarjetas de ejemplo")}</span>
-              </button>
             </div>
           </Window>
         ) : (
           <>
-            {isDemoMode && (
-              <div className="tablon-demo-banner" role="status">
-                <span>
-                  <T>Vista de ejemplo — Aún no hay proyectos publicados en el catálogo de GitHub.</T>
-                </span>
-                <button type="button" className="pill-button" onClick={exitDemo}>
-                  {t("Volver al catálogo real")}
-                </button>
-              </div>
-            )}
-
             <div className="tablon-toolbar">
               <div className="tablon-tabs" role="tablist" aria-label={t("Vistas del catálogo")}>
                 {VIEW_TABS.map((tab) => {

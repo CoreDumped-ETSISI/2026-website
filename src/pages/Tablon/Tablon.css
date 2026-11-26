@@ -1,0 +1,134 @@
+#tablon-page {
+  min-height: calc(100dvh - 70px);
+}
+
+.tablon-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 2.25rem;
+}
+
+.tablon-header .lead.intro {
+  margin-bottom: 0;
+}
+
+.tablon-header-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+}
+
+.tablon-toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+  padding: 1.1rem;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+}
+
+.tablon-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tablon-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-muted);
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+}
+
+.tablon-tab:hover {
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+.tablon-tab.is-active {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  color: var(--accent);
+}
+
+.tablon-tab-count {
+  padding: 0.05rem 0.42rem;
+  border-radius: 999px;
+  background: var(--surface-2);
+  color: var(--text-muted);
+  font-family: monospace;
+  font-size: 0.75rem;
+}
+
+.tablon-tab.is-active .tablon-tab-count {
+  background: color-mix(in srgb, var(--accent) 20%, transparent);
+  color: var(--accent);
+}
+
+.tablon-filters {
+  display: grid;
+  grid-template-columns: minmax(200px, 1.4fr) repeat(3, minmax(140px, 1fr)) auto;
+  gap: 0.75rem;
+  align-items: end;
+}
+
+.tablon-empty-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0 1.1rem 1.25rem;
+}
+
+.tablon-empty-filter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  padding: 2.5rem 1.5rem;
+  border: 1px dashed var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.tablon-sync-meta {
+  margin-top: 2rem;
+  color: var(--text-muted);
+  font-family: monospace;
+  font-size: 0.78rem;
+  text-align: right;
+}
+
+@media (max-width: 62em) {
+  .tablon-filters {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 48em) {
+  .tablon-filters {
+    grid-template-columns: 1fr;
+  }
+
+  .tablon-sync-meta {
+    text-align: left;
+  }
+}

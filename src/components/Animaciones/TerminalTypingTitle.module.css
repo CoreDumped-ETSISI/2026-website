@@ -1,0 +1,54 @@
+/* El título se encarga del espacio con lo que viene debajo,
+   así todas las páginas quedan iguales. */
+.root {
+    display: block;
+    margin: 0 0 2rem;
+    font-family: 'Geist Pixel', monospace !important;
+    color: var(--terminal-text);
+}
+
+.user {
+    color: var(--terminal-text);
+}
+
+.at {
+    color: var(--text);
+    margin: 0 4px;
+}
+
+.host {
+    color: var(--terminal-text);
+}
+
+.text {
+    color: var(--text);
+}
+
+.cursor {
+    display: inline-block;
+    width: 8px;
+    height: 1.1em;
+    margin-left: 4px;
+    vertical-align: middle;
+    background-color: var(--terminal-text);
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+
+    0%,
+    49% {
+        opacity: 1;
+    }
+
+    50%,
+    100% {
+        opacity: 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cursor {
+        animation: none;
+    }
+}

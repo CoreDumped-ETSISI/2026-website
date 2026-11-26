@@ -67,17 +67,20 @@
   width: 100%;
   height: 400vh;
   z-index: 0;
-  background: linear-gradient(
-    to bottom,
-    #ffffff 0%,
-    #ffffff 18%,   /* pantalla 1: blanco  (0–72vh sólido)    */
-    #5fb030 32%,
-    #5fb030 43%,   /* pantalla 2: verde   (128–172vh sólido) */
-    #800080 57%,
-    #800080 68%,   /* pantalla 3: morado  (228–272vh sólido) */
-    #000000 82%,
-    #000000 100%   /* pantalla 4: negro   (328–400vh sólido) */
-  );
+  background: linear-gradient(to bottom,
+      #ffffff 0%,
+      #ffffff 18%,
+      /* pantalla 1: blanco  (0–72vh sólido)    */
+      #5fb030 32%,
+      #5fb030 43%,
+      /* pantalla 2: verde   (128–172vh sólido) */
+      #800080 57%,
+      #800080 68%,
+      /* pantalla 3: morado  (228–272vh sólido) */
+      #000000 82%,
+      #000000 100%
+      /* pantalla 4: negro   (328–400vh sólido) */
+    );
 
   /* Estado inicial: el gradiente completo comprimido en una sola pantalla
      y oculto. */
@@ -100,6 +103,7 @@
     /* Acelera hasta el final del revelado, sin frenar */
     animation-timing-function: cubic-bezier(0.3, 0.3, 0.7, 0.55);
   }
+
   45.45% {
     clip-path: inset(0 0 0 0);
     transform: scaleY(0.25);
@@ -107,6 +111,7 @@
        y frena suavemente al final */
     animation-timing-function: cubic-bezier(0.25, 0.15, 0.3, 1);
   }
+
   100% {
     clip-path: inset(0 0 0 0);
     transform: scaleY(1);
@@ -155,6 +160,7 @@
   background: #000;
   color: #fff;
 }
+
 .skip-link:focus {
   left: 0;
 }
@@ -162,6 +168,22 @@
 :focus-visible {
   outline: 3px solid #1c7ed6;
   outline-offset: 2px;
+}
+
+
+.navbar-logo>.cursor-icon {
+  color: #77d143;
+  animation: blink 1s step-start infinite;
+}
+
+@keyframes blink {
+  0%, 49% {
+    opacity: 1;
+  }
+
+  50%, 100% {
+    opacity: 0;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

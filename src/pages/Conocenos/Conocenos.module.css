@@ -1,0 +1,98 @@
+.page {
+    overflow-x: clip;
+}
+
+.section {
+    min-height: calc(100dvh - 70px);
+    display: flex;
+    align-items: center;
+    padding-block: 2rem;
+}
+
+.sectionInner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    align-items: center;
+}
+
+/* El texto usa las piezas comunes de src/styles/ui.css
+   (feature-info, eyebrow, feature-title, lead, detail-list, arrow-link).
+   .text solo se usa para el orden en escritorio (más abajo). */
+
+/* ---------- Móvil: rejilla simple de 2 columnas ---------- */
+.collage {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 160px;
+    gap: 10px;
+}
+
+.item {
+    display: block;
+    overflow: hidden;
+    border-radius: var(--mantine-radius-md);
+    box-shadow: 0 6px 18px rgb(0 0 0 / 0.25);
+}
+
+.item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
+}
+
+.item:hover img,
+.item:focus-visible img {
+    transform: scale(1.05);
+    filter: brightness(1.08);
+}
+
+/* ---------- Escritorio: texto + collage irregular ---------- */
+@media (min-width: 769px) {
+    .sectionInner {
+        grid-template-columns: 1fr 1.3fr;
+        gap: 3rem;
+    }
+
+    /* alterna lado del texto */
+    .reverse .sectionInner { grid-template-columns: 1.3fr 1fr; }
+    .reverse .text { order: 2; }
+
+    .collage {
+        grid-template-columns: repeat(12, 1fr);
+        grid-template-rows: repeat(12, 1fr);
+        grid-auto-rows: auto;
+        aspect-ratio: 1 / 1;
+    }
+
+    /* grid-area: fila-inicio / col-inicio / fila-fin / col-fin */
+
+    /* 6 imágenes */
+    .collage[data-count="6"] > :nth-child(1) { grid-area: 1 / 4 / 5 / 10; }
+    .collage[data-count="6"] > :nth-child(2) { grid-area: 1 / 10 / 4 / 13; }
+    .collage[data-count="6"] > :nth-child(3) { grid-area: 4 / 10 / 9 / 13; }
+    .collage[data-count="6"] > :nth-child(4) { grid-area: 5 / 1 / 11 / 6; }
+    .collage[data-count="6"] > :nth-child(5) { grid-area: 5 / 6 / 8 / 10; }
+    .collage[data-count="6"] > :nth-child(6) { grid-area: 9 / 6 / 13 / 13; }
+
+    /* 5 imágenes */
+    .collage[data-count="5"] > :nth-child(1) { grid-area: 1 / 6 / 6 / 13; }
+    .collage[data-count="5"] > :nth-child(2) { grid-area: 2 / 1 / 7 / 6; }
+    .collage[data-count="5"] > :nth-child(3) { grid-area: 6 / 6 / 10 / 10; }
+    .collage[data-count="5"] > :nth-child(4) { grid-area: 6 / 10 / 13 / 13; }
+    .collage[data-count="5"] > :nth-child(5) { grid-area: 10 / 1 / 13 / 10; }
+
+    /* 4 imágenes */
+    .collage[data-count="4"] > :nth-child(1) { grid-area: 1 / 4 / 6 / 13; }
+    .collage[data-count="4"] > :nth-child(2) { grid-area: 3 / 1 / 9 / 4; }
+    .collage[data-count="4"] > :nth-child(3) { grid-area: 6 / 4 / 11 / 9; }
+    .collage[data-count="4"] > :nth-child(4) { grid-area: 6 / 9 / 13 / 13; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .item img { transition: none; }
+    .item:hover img,
+    .item:focus-visible img { transform: none; }
+}

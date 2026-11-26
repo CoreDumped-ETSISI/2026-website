@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+  <symbol id="icon-bamboolabs" viewBox="0 0 256 256">
+    <g fill="none" stroke="#2c2d2c" stroke-width="24">
+    <circle cx="76" cy="128" r="52" />
+    <circle cx="180" cy="128" r="52" />
+    </g>
+  </symbol>
+</svg>

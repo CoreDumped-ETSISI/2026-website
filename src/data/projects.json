@@ -1,0 +1,66 @@
+{
+  "syncedAt": "2026-11-26T10:07:59Z",
+  "org": {
+    "login": "CoreDumped-ETSISI",
+    "name": "Core Dumped - Universidad Politécnica de Madrid",
+    "url": "https://github.com/CoreDumped-ETSISI",
+    "avatarUrl": "https://avatars.githubusercontent.com/u/29098031?v=4"
+  },
+  "project": {
+    "id": "PVT_kwDOAbwAL84BtN8M",
+    "number": 11,
+    "title": "Project Catalog",
+    "shortDescription": "All Core Dumped projects in one place: what's active, what's looking for members, and what's open to collaboration.",
+    "description": "Every card is a Core Dumped project. How to join or propose one: https://github.com/CoreDumped-ETSISI/project-catalog",
+    "url": "https://github.com/orgs/CoreDumped-ETSISI/projects/11",
+    "public": true,
+    "closed": false,
+    "updatedAt": "2026-11-26T10:07:59Z",
+    "fields": [
+      {
+        "id": "Status",
+        "name": "Status",
+        "dataType": "SINGLE_SELECT",
+        "options": [
+          { "id": "49ff0123", "name": "Proposal", "color": "PURPLE", "description": "" },
+          { "id": "f048132d", "name": "Active", "color": "PINK", "description": "" },
+          { "id": "a2429847", "name": "Paused", "color": "ORANGE", "description": "" },
+          { "id": "96de0da9", "name": "Completed", "color": "GREEN", "description": "" },
+          { "id": "eeddd89f", "name": "Archived", "color": "PURPLE", "description": "" }
+        ]
+      },
+      {
+        "id": "Openness",
+        "name": "Openness",
+        "dataType": "SINGLE_SELECT",
+        "options": [
+          { "id": "65697190", "name": "Looking for members", "color": "GREEN", "description": "" },
+          { "id": "d32d897e", "name": "Open to collaboration", "color": "GREEN", "description": "" },
+          { "id": "a71e2291", "name": "Looking for members & collaboration", "color": "GREEN", "description": "" },
+          { "id": "99f52fb8", "name": "Closed", "color": "PINK", "description": "" }
+        ]
+      },
+      {
+        "id": "Main area",
+        "name": "Main area",
+        "dataType": "MULTI_SELECT",
+        "options": [
+          { "id": "23a4629e", "name": "Software", "color": "GRAY", "description": "" },
+          { "id": "a23c513c", "name": "Hardware", "color": "GRAY", "description": "" },
+          { "id": "8477fa17", "name": "Data Science", "color": "GRAY", "description": "" }
+        ]
+      },
+      {
+        "id": "Level",
+        "name": "Level",
+        "dataType": "SINGLE_SELECT",
+        "options": [
+          { "id": "402463a5", "name": "Beginner", "color": "GRAY", "description": "" },
+          { "id": "691872de", "name": "Intermediate", "color": "GRAY", "description": "" },
+          { "id": "40dbe299", "name": "Advanced", "color": "GRAY", "description": "" }
+        ]
+      }
+    ]
+  },
+  "items": []
+}

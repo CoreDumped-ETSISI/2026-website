@@ -1,32 +1,34 @@
-import {Button, Container, Stack} from "@mantine/core";
+import { Button, Container, Stack } from "@mantine/core";
 import TerminalTypingText from "../../components/Animaciones/TerminalTypingTitle";
-import {useState} from "react";
-import {T} from "../../i18n/lang";
-import {Link} from "react-router-dom";
+import { useState } from "react";
+import { T } from "../../i18n/lang";
+import { Link } from "react-router-dom";
 
 
 function Home() {
     const [typingDone, setTypingDone] = useState(false);
-    return (
+    return (<div id="home-page">
         <Container size="lg" py="xl" mih="calc(100dvh - 70px)"
-                   style={{
-                       display: "flex",
-                       flexDirection: "column",
-                       justifyContent: "center",
-                       alignItems: "center",
-                       textAlign: "center",
-                   }}>
+            style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+                textAlign: "center",
+            }}>
             <Stack gap="md" align="center">
 
                 <TerminalTypingText
-                    text="root@coredumped:~$ initializing system... access granted."
+                    user="root"
+                    host="coredumped"
                     speed={35}
                     onComplete={() => setTypingDone(true)}
-                />
-                <span/>
+                    typingDone={typingDone}
+                >:~$ initializing system... access granted.</TerminalTypingText>
+                <span />
             </Stack>
             <Stack gap="md" mt="md" align="center">
-                <span/>
+                <span />
                 <Button
                     bg="var(--terminal-text)"
                     h="clamp(64px, 9vw, 110px)"
@@ -38,18 +40,19 @@ function Home() {
                     className={`fade-up ${typingDone ? "fade-up--visible" : ""}`}
                     aria-hidden={!typingDone}
                     tabIndex={typingDone ? 0 : -1}
-                    > <T>Conócenos</T> </Button>
+                    color="red !important"
+                > <T>Conócenos</T> </Button>
 
             </Stack>
 
             <style>{`
-                @keyframes blink {
-                    0%, 49% { opacity: 1; }
-                    50%, 100% { opacity: 0; }
-                }
-            `}</style>
+                    @keyframes blink {
+                        0%, 49% { opacity: 1; }
+                        50%, 100% { opacity: 0; }
+                    }
+                `}</style>
         </Container>
-    );
+    </div>);
 }
 
 export default Home;

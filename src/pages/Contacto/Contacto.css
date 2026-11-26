@@ -1,0 +1,6 @@
+/* Contacto usa las piezas comunes de src/styles/ui.css
+   (lead, eyebrow, card-grid, info-card, pill-button, window, terminal-log). */
+
+#contacto-page {
+    min-height: calc(100dvh - 70px);
+}

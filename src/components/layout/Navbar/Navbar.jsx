@@ -1,29 +1,28 @@
-import {useDisclosure} from "@mantine/hooks";
-import {Link, useLocation} from "react-router-dom";
+import { useDisclosure } from "@mantine/hooks";
+import { Link, useLocation } from "react-router-dom";
 import {
     Container, Group, Anchor, Burger, Drawer, Stack,
     NavLink, Image, Text, SegmentedControl, useComputedColorScheme
 } from "@mantine/core";
 
-import {useLang, msg} from "../../../i18n/lang"
+import { useLang, msg } from "../../../i18n/lang"
 import logoBlack from "../../../../assets/icons/core-black-inner.svg";
 import logoWhite from "../../../../assets/icons/core-white-inner.svg";
 
+import UseSvg from "../../../common/Svg/UseSvg";
 import ThemeToggle from "../../../common/Theme/ThemeToggle";
 
 const links = [
-    {label: msg("Inicio"), path: "/"},
-    {label: msg("Conócenos"), path: "/conocenos"},
-    {label: msg("Tienda"), path: "/tienda"},
-    {label: msg("Tablón"), path: "/tablon"},
-    {label: msg("Departamentos"), path: "/departamentos"},
-    {label: msg("Colaboradores"), path: "/colaboradores"},
-    {label: msg("Contacto"), path: "/contacto"}
+    { label: msg("Inicio"), path: "/" },
+    { label: msg("Conócenos"), path: "/conocenos" },
+    { label: msg("Tienda"), path: "/tienda" },
+    { label: msg("Tablón"), path: "/tablon" },
+    { label: msg("Contacto"), path: "/contacto" }
 ];
 
 export default function Navbar() {
-    const {lang, setLang, t} = useLang();
-    const [opened, {toggle, close}] = useDisclosure(false);
+    const { lang, setLang, t } = useLang();
+    const [opened, { toggle, close }] = useDisclosure(false);
     const location = useLocation();
     const computed = useComputedColorScheme("light");
     const logoSrc = computed === "dark" ? logoWhite : logoBlack;
@@ -35,13 +34,13 @@ export default function Navbar() {
             onChange={setLang}
             aria-label={t("Idioma")}
             data={[
-                {value: "es", label: "ES"},
-                {value: "en", label: "EN"}
+                { value: "es", label: "ES" },
+                { value: "en", label: "EN" }
             ]}
         />
     );
     const themeSwitcher = (
-        <ThemeToggle/>
+        <ThemeToggle />
     );
 
     return (
@@ -50,18 +49,23 @@ export default function Navbar() {
                 <Group justify="space-between" wrap="nowrap" h="100%">
                     <Anchor component={Link} to="/" underline="never" c="var(--text)">
                         <Group gap="xs" wrap="nowrap">
-                            <Image
-                                src={logoSrc}
-                                alt={t("Logo de CoreDumped")}
-                                h={36}
-                                w="auto"
-                                fit="contain"
-                            />
+                            <div className="navbar-logo" style={{ display: "flex", alignItems: "end", color: "var(--text)" }} alt={t("Logo de CoreDumped")}>
+                                <UseSvg icon="prompt" titleSvg={t("Logo de CoreDumped")} style={{ width: 31, height: 32 }} />
+
+                                <UseSvg icon="cursor" style={{ width: 20, height: 3 }} />
+                                {/* <Image
+                                    src={logoSrc}
+                                    alt={t("Logo de CoreDumped")}
+                                    h={36}
+                                    w="auto"
+                                    fit="contain"
+                                /> */}
+                            </div>
                             <Text
                                 fw={700}
                                 size="lg"
                                 visibleFrom="sm"
-                                style={{fontFamily: "Cont"}}
+                                style={{ fontFamily: "Cont" }}
                                 sx={{
                                     transition: 'color 0.2s ease',
                                     '&:hover': {

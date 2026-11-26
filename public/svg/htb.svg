@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+  <symbol id="icon-htb" viewBox="0 0 512 512">
+    <g fill="none" stroke="#29b30e" stroke-width="32" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M256 64 L426.67 160 L426.67 352 L256 448 L85.33 352 L85.33 160 Z" />
+    <path d="M256 256 L256 448" />
+    <path d="M256 256 L426.67 160" />
+    <path d="M256 256 L85.33 160" />
+    </g>
+  </symbol>
+</svg>

@@ -11,6 +11,7 @@ services:
       - TZ=Europe/Madrid
       - REPO_URL=https://github.com/CoreDumped-ETSISI/2026-website.git
       - CRON_SCHEDULE=59 23 * * *
+      - GITHUB_TOKEN=${GITHUB_TOKEN:-}
     networks:
       - server-network
 

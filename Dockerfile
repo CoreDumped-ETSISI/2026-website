@@ -1,6 +1,8 @@
 # Etapa 1: Build inicial de la aplicación Vite + React desde GitHub
 FROM debian:stable-slim AS builder
 ARG REPO_URL=https://github.com/CoreDumped-ETSISI/2026-website.git
+ARG GITHUB_TOKEN=""
+ENV GITHUB_TOKEN=$GITHUB_TOKEN
 RUN apt-get update && apt-get install -y --no-install-recommends \
     nodejs npm git ca-certificates \
     && rm -rf /var/lib/apt/lists/*
@@ -15,10 +17,11 @@ FROM debian:stable-slim
 
 ENV TZ=Europe/Madrid \
     REPO_URL=https://github.com/CoreDumped-ETSISI/2026-website.git \
-    CRON_SCHEDULE="59 23 * * *"
+    CRON_SCHEDULE="59 23 * * *" \
+    GITHUB_TOKEN=""
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    nginx-light cron git ca-certificates tzdata \
+    nginx-light cron git ca-certificates tzdata curl \
     && rm -rf /var/lib/apt/lists/* \
     && rm -f /var/www/html/index.nginx-debian.html \
     && sed -i 's|try_files \$uri \$uri/ =404;|try_files \$uri \$uri/ /index.html;|' /etc/nginx/sites-available/default
@@ -35,6 +38,7 @@ RUN printf '%s\n' \
     '' \
     'REPO_URL="${REPO_URL:-https://github.com/CoreDumped-ETSISI/2026-website.git}"' \
     'HASH_FILE="/var/lib/website-commit"' \
+    'PROJECTS_UPDATED_FILE="/var/lib/projects-updated-at"' \
     'BUILD_DIR="/tmp/website-build"' \
     '' \
     'echo "[$(date "+%Y-%m-%d %H:%M:%S")] Comprobando cambios en $REPO_URL..."' \
@@ -50,12 +54,21 @@ RUN printf '%s\n' \
     '    LOCAL_HASH=$(cat "$HASH_FILE")' \
     'fi' \
     '' \
-    'if [ "$REMOTE_HASH" = "$LOCAL_HASH" ]; then' \
+    'REMOTE_PROJECTS_UPDATED=""' \
+    'LOCAL_PROJECTS_UPDATED=""' \
+    'if [ -n "$GITHUB_TOKEN" ]; then' \
+    '    REMOTE_PROJECTS_UPDATED=$(curl -fsSL -H "Authorization: Bearer $GITHUB_TOKEN" -H "Content-Type: application/json" -d '\''{"query":"query { organization(login: \"CoreDumped-ETSISI\") { projectV2(number: 11) { updatedAt } } }"}'\'' https://api.github.com/graphql 2>/dev/null | sed -n '\''s/.*"updatedAt":"\([^"]*\)".*/\1/p'\'' | head -n 1 || true)' \
+    'fi' \
+    'if [ -f "$PROJECTS_UPDATED_FILE" ]; then' \
+    '    LOCAL_PROJECTS_UPDATED=$(cat "$PROJECTS_UPDATED_FILE")' \
+    'fi' \
+    '' \
+    'if [ "$REMOTE_HASH" = "$LOCAL_HASH" ] && [ "$REMOTE_PROJECTS_UPDATED" = "$LOCAL_PROJECTS_UPDATED" ]; then' \
     '    echo "[$(date "+%Y-%m-%d %H:%M:%S")] Sin cambios ($REMOTE_HASH)."' \
     '    exit 0' \
     'fi' \
     '' \
-    'echo "[$(date "+%Y-%m-%d %H:%M:%S")] Cambio detectado ($LOCAL_HASH -> $REMOTE_HASH). Descargando dependencias y compilando..."' \
+    'echo "[$(date "+%Y-%m-%d %H:%M:%S")] Cambio detectado ($LOCAL_HASH -> $REMOTE_HASH, proyectos: $LOCAL_PROJECTS_UPDATED -> $REMOTE_PROJECTS_UPDATED). Descargando dependencias y compilando..."' \
     '' \
     'cleanup() {' \
     '    echo "[$(date "+%Y-%m-%d %H:%M:%S")] Eliminando código fuente y herramientas de compilación..."' \
@@ -78,6 +91,7 @@ RUN printf '%s\n' \
     'rm -rf /var/www/html/*' \
     'cp -r "$BUILD_DIR"/dist/* /var/www/html/' \
     'echo "$REMOTE_HASH" > "$HASH_FILE"' \
+    'if [ -n "$REMOTE_PROJECTS_UPDATED" ]; then echo "$REMOTE_PROJECTS_UPDATED" > "$PROJECTS_UPDATED_FILE"; fi' \
     '' \
     'nginx -s reload' \
     'echo "[$(date "+%Y-%m-%d %H:%M:%S")] Sitio actualizado y recargado con éxito ($REMOTE_HASH)."' \
@@ -103,6 +117,7 @@ RUN printf '%s\n' \
     'printf "%s\n" \' \
     '    "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin" \' \
     '    "REPO_URL=$REPO_URL" \' \
+    '    "GITHUB_TOKEN=$GITHUB_TOKEN" \' \
     '    "$CRON_SCHEDULE root /usr/local/bin/update-website.sh >> /proc/1/fd/1 2>>/proc/1/fd/2" \' \
     '    > /etc/cron.d/website-updater' \
     'chmod 0644 /etc/cron.d/website-updater' \

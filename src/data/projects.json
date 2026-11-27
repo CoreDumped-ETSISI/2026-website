@@ -1,5 +1,5 @@
 {
-  "syncedAt": "2026-11-26T10:07:59Z",
+  "syncedAt": "2026-11-27T12:26:23.756Z",
   "org": {
     "login": "CoreDumped-ETSISI",
     "name": "Core Dumped - Universidad Politécnica de Madrid",
@@ -15,50 +15,215 @@
     "url": "https://github.com/orgs/CoreDumped-ETSISI/projects/11",
     "public": true,
     "closed": false,
-    "updatedAt": "2026-11-26T10:07:59Z",
+    "updatedAt": "2026-11-27T02:09:40Z",
     "fields": [
       {
-        "id": "Status",
+        "id": "PVTF_lADOAbwAL84BtN8MzhrYcSQ",
+        "name": "Title",
+        "dataType": "TITLE",
+        "options": []
+      },
+      {
+        "id": "PVTF_lADOAbwAL84BtN8MzhrYcSY",
+        "name": "Assignees",
+        "dataType": "ASSIGNEES",
+        "options": []
+      },
+      {
+        "id": "PVTSSF_lADOAbwAL84BtN8MzhrYcSg",
         "name": "Status",
         "dataType": "SINGLE_SELECT",
         "options": [
-          { "id": "49ff0123", "name": "Proposal", "color": "PURPLE", "description": "" },
-          { "id": "f048132d", "name": "Active", "color": "PINK", "description": "" },
-          { "id": "a2429847", "name": "Paused", "color": "ORANGE", "description": "" },
-          { "id": "96de0da9", "name": "Completed", "color": "GREEN", "description": "" },
-          { "id": "eeddd89f", "name": "Archived", "color": "PURPLE", "description": "" }
+          {
+            "id": "49ff0123",
+            "name": "Proposal",
+            "color": "PURPLE",
+            "description": ""
+          },
+          {
+            "id": "f048132d",
+            "name": "Active",
+            "color": "PINK",
+            "description": ""
+          },
+          {
+            "id": "a2429847",
+            "name": "Paused",
+            "color": "ORANGE",
+            "description": ""
+          },
+          {
+            "id": "96de0da9",
+            "name": "Completed",
+            "color": "GREEN",
+            "description": ""
+          },
+          {
+            "id": "eeddd89f",
+            "name": "Archived",
+            "color": "PURPLE",
+            "description": ""
+          }
         ]
       },
       {
-        "id": "Openness",
+        "id": "PVTF_lADOAbwAL84BtN8MzhrYcSo",
+        "name": "Labels",
+        "dataType": "LABELS",
+        "options": []
+      },
+      {
+        "id": "PVTF_lADOAbwAL84BtN8MzhrYcSs",
+        "name": "Linked pull requests",
+        "dataType": "LINKED_PULL_REQUESTS",
+        "options": []
+      },
+      {
+        "id": "PVTF_lADOAbwAL84BtN8MzhrYcSw",
+        "name": "Milestone",
+        "dataType": "MILESTONE",
+        "options": []
+      },
+      {
+        "id": "PVTF_lADOAbwAL84BtN8MzhrYcS0",
+        "name": "Repository",
+        "dataType": "REPOSITORY",
+        "options": []
+      },
+      {
+        "id": "PVTF_lADOAbwAL84BtN8MzhrYcS8",
+        "name": "Reviewers",
+        "dataType": "REVIEWERS",
+        "options": []
+      },
+      {
+        "id": "PVTF_lADOAbwAL84BtN8MzhrYcTA",
+        "name": "Parent issue",
+        "dataType": "PARENT_ISSUE",
+        "options": []
+      },
+      {
+        "id": "PVTF_lADOAbwAL84BtN8MzhrYcTE",
+        "name": "Sub-issues progress",
+        "dataType": "SUB_ISSUES_PROGRESS",
+        "options": []
+      },
+      {
+        "id": "PVTF_lADOAbwAL84BtN8MzhrYcTI",
+        "name": "Created",
+        "dataType": "CREATED",
+        "options": []
+      },
+      {
+        "id": "PVTF_lADOAbwAL84BtN8MzhrYcTM",
+        "name": "Updated",
+        "dataType": "UPDATED",
+        "options": []
+      },
+      {
+        "id": "PVTF_lADOAbwAL84BtN8MzhrYcTQ",
+        "name": "Closed",
+        "dataType": "CLOSED",
+        "options": []
+      },
+      {
+        "id": "PVTSSF_lADOAbwAL84BtN8MzhrYw9s",
         "name": "Openness",
         "dataType": "SINGLE_SELECT",
         "options": [
-          { "id": "65697190", "name": "Looking for members", "color": "GREEN", "description": "" },
-          { "id": "d32d897e", "name": "Open to collaboration", "color": "GREEN", "description": "" },
-          { "id": "a71e2291", "name": "Looking for members & collaboration", "color": "GREEN", "description": "" },
-          { "id": "99f52fb8", "name": "Closed", "color": "PINK", "description": "" }
+          {
+            "id": "65697190",
+            "name": "Looking for members",
+            "color": "GREEN",
+            "description": ""
+          },
+          {
+            "id": "d32d897e",
+            "name": "Open to collaboration",
+            "color": "GREEN",
+            "description": ""
+          },
+          {
+            "id": "a71e2291",
+            "name": "Looking for members & collaboration",
+            "color": "GREEN",
+            "description": ""
+          },
+          {
+            "id": "99f52fb8",
+            "name": "Closed",
+            "color": "PINK",
+            "description": ""
+          }
         ]
       },
       {
-        "id": "Main area",
+        "id": "PVTMSF_lADOAbwAL84BtN8MzhrYzyM",
         "name": "Main area",
         "dataType": "MULTI_SELECT",
         "options": [
-          { "id": "23a4629e", "name": "Software", "color": "GRAY", "description": "" },
-          { "id": "a23c513c", "name": "Hardware", "color": "GRAY", "description": "" },
-          { "id": "8477fa17", "name": "Data Science", "color": "GRAY", "description": "" }
+          {
+            "id": "23a4629e",
+            "name": "Software",
+            "color": "GRAY",
+            "description": ""
+          },
+          {
+            "id": "a23c513c",
+            "name": "Hardware",
+            "color": "GRAY",
+            "description": ""
+          },
+          {
+            "id": "8477fa17",
+            "name": "Data Science",
+            "color": "GRAY",
+            "description": ""
+          }
         ]
       },
       {
-        "id": "Level",
+        "id": "PVTSSF_lADOAbwAL84BtN8MzhrY1z0",
         "name": "Level",
         "dataType": "SINGLE_SELECT",
         "options": [
-          { "id": "402463a5", "name": "Beginner", "color": "GRAY", "description": "" },
-          { "id": "691872de", "name": "Intermediate", "color": "GRAY", "description": "" },
-          { "id": "40dbe299", "name": "Advanced", "color": "GRAY", "description": "" }
+          {
+            "id": "402463a5",
+            "name": "Beginner",
+            "color": "GRAY",
+            "description": ""
+          },
+          {
+            "id": "691872de",
+            "name": "Intermediate",
+            "color": "GRAY",
+            "description": ""
+          },
+          {
+            "id": "40dbe299",
+            "name": "Advanced",
+            "color": "GRAY",
+            "description": ""
+          }
         ]
+      },
+      {
+        "id": "PVTF_lADOAbwAL84BtN8MzhrY9bQ",
+        "name": "Return Date",
+        "dataType": "DATE",
+        "options": []
+      },
+      {
+        "id": "PVTF_lADOAbwAL84BtN8MzhrY-C8",
+        "name": "Lead",
+        "dataType": "TEXT",
+        "options": []
+      },
+      {
+        "id": "PVTF_lADOAbwAL84BtN8MzhrY--Q",
+        "name": "Repo Link",
+        "dataType": "TEXT",
+        "options": []
       }
     ]
   },

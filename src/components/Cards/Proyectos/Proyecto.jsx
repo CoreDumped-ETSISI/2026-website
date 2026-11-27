@@ -1,10 +1,8 @@
 import { Avatar, Tooltip } from "@mantine/core";
 import {
+  IconArrowUpRight,
   IconBrandGithub,
   IconCalendar,
-  IconChartBar,
-  IconExternalLink,
-  IconLayersSubtract,
 } from "@tabler/icons-react";
 import { useLang } from "../../../i18n/lang";
 import {
@@ -16,12 +14,23 @@ import {
 } from "./projectMeta";
 import "./Proyecto.css";
 
+function normalizeSummary(raw) {
+  if (!raw) return "";
+  return String(raw).replace(/\s+/g, " ").trim();
+}
+
 function Proyecto({ project, onSelect }) {
   const { lang, t } = useLang();
   const statusMeta = getStatusMeta(project.status);
   const opennessMeta = getOpennessMeta(project.openness);
   const returnDateText =
     project.status === "Paused" ? formatReturnDate(project.returnDate, lang) : null;
+
+  const descriptionText = normalizeSummary(project.details?.description);
+  const metaParts = [
+    ...(project.areas ?? []).map((area) => t(getAreaLabel(area))),
+    project.level ? t(getLevelLabel(project.level)) : null,
+  ].filter(Boolean);
 
   const visibleTechs = (project.technologies ?? []).slice(0, 5);
   const extraTechCount = Math.max(0, (project.technologies?.length ?? 0) - visibleTechs.length);
@@ -46,45 +55,53 @@ function Proyecto({ project, onSelect }) {
       onKeyDown={handleKeyDown}
     >
       <div className="project-card-top">
-        <span className={`project-badge project-badge--${statusMeta.variant}`}>
-          <span className="project-badge-dot" aria-hidden="true" />
-          {t(statusMeta.label)}
+        <span className={`project-status project-status--${statusMeta.variant}`}>
+          <span className="project-status-dot" aria-hidden="true" />
+          <span>{t(statusMeta.label)}</span>
         </span>
-        <span className={`project-badge project-badge--${opennessMeta.variant}`}>
-          {t(opennessMeta.label)}
-        </span>
+
+        <div className="project-card-ref">
+          <span
+            className={`project-openness ${opennessMeta.variant !== "closed" ? "is-open" : ""}`}
+          >
+            {t(opennessMeta.label)}
+          </span>
+          {project.number != null && (
+            <span className="project-issue-id">
+              #{String(project.number).padStart(2, "0")}
+            </span>
+          )}
+        </div>
       </div>
 
       <div className="project-card-body">
         <h3 className="project-card-title">{project.title}</h3>
 
-        {project.details?.description && (
-          <p className="project-card-desc">{project.details.description}</p>
+        {descriptionText && (
+          <p className="project-card-desc">{descriptionText}</p>
         )}
 
         {returnDateText && (
-          <div className="project-return-banner">
-            <IconCalendar size={14} stroke={1.8} aria-hidden="true" />
+          <div className="project-return-note">
+            <IconCalendar size={16} stroke={1.5} aria-hidden="true" />
             <span>
               {t("Regreso estimado")}: {returnDateText}
             </span>
           </div>
         )}
 
-        {(project.areas?.length > 0 || project.level) && (
-          <div className="project-meta-row">
-            {project.areas?.map((area) => (
-              <span key={area} className="project-meta-chip">
-                <IconLayersSubtract size={13} stroke={1.8} aria-hidden="true" />
-                {t(getAreaLabel(area))}
+        {metaParts.length > 0 && (
+          <div className="project-meta-line">
+            {metaParts.map((part, index) => (
+              <span key={`${part}-${index}`} className="project-meta-item">
+                {index > 0 && (
+                  <span className="project-meta-sep" aria-hidden="true">
+                    ·
+                  </span>
+                )}
+                <span>{part}</span>
               </span>
             ))}
-            {project.level && (
-              <span className="project-meta-chip">
-                <IconChartBar size={13} stroke={1.8} aria-hidden="true" />
-                {t(getLevelLabel(project.level))}
-              </span>
-            )}
           </div>
         )}
 
@@ -105,7 +122,7 @@ function Proyecto({ project, onSelect }) {
       <div className="project-card-footer">
         <div className="project-team-block">
           {assignees.length > 0 && (
-            <Avatar.Group spacing="xs">
+            <Avatar.Group spacing={6}>
               {visibleAssignees.map((user) => (
                 <Tooltip key={user.login} label={`@${user.login}`} withArrow>
                   <Avatar
@@ -133,27 +150,27 @@ function Proyecto({ project, onSelect }) {
         <div className="project-card-links">
           {project.repoUrl && (
             <a
-              className="project-link-pill"
+              className="project-card-link"
               href={project.repoUrl}
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
               aria-label={`${t("Repositorio de")} ${project.title}`}
             >
-              <IconBrandGithub size={14} stroke={1.8} aria-hidden="true" />
+              <IconBrandGithub size={16} stroke={1.5} aria-hidden="true" />
               <span>{t("Código")}</span>
             </a>
           )}
           <a
-            className="project-link-pill"
+            className="project-card-link"
             href={project.issueUrl}
             target="_blank"
             rel="noopener noreferrer"
             onClick={(e) => e.stopPropagation()}
             aria-label={`${t("Ficha en GitHub de")} ${project.title}`}
           >
-            <IconExternalLink size={14} stroke={1.8} aria-hidden="true" />
             <span>{t("Ficha")}</span>
+            <IconArrowUpRight size={16} stroke={1.5} aria-hidden="true" />
           </a>
         </div>
       </div>

@@ -1,4 +1,5 @@
 #tablon-page {
+  --tablon-ease: cubic-bezier(0.22, 1, 0.36, 1);
   min-height: calc(100dvh - 70px);
 }
 
@@ -7,8 +8,8 @@
   flex-wrap: wrap;
   align-items: flex-end;
   justify-content: space-between;
-  gap: 1.5rem;
-  margin-bottom: 2.25rem;
+  gap: 16px 24px;
+  margin-bottom: 32px;
 }
 
 .tablon-header .lead.intro {
@@ -19,102 +20,235 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.75rem 1.25rem;
+  gap: 12px 24px;
 }
 
 .tablon-toolbar {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  margin-bottom: 1.75rem;
-  padding: 1.1rem;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding: 16px;
   border: 1px solid var(--border);
   border-radius: 14px;
   background: var(--surface);
 }
 
-.tablon-tabs {
+.tablon-toolbar-top {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.tablon-tabs {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-2);
 }
 
 .tablon-tab {
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
-  padding: 0.45rem 0.9rem;
-  border: 1px solid var(--border);
-  border-radius: 999px;
+  gap: 8px;
+  height: 32px;
+  padding: 0 12px;
+  border: 1px solid transparent;
+  border-radius: 6px;
   background: transparent;
   color: var(--text-muted);
   font: inherit;
-  font-size: 0.88rem;
-  font-weight: 600;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1;
   cursor: pointer;
-  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+  transition:
+    color 150ms var(--tablon-ease),
+    background-color 150ms var(--tablon-ease),
+    border-color 150ms var(--tablon-ease);
 }
 
 .tablon-tab:hover {
-  border-color: var(--accent);
   color: var(--text);
 }
 
+.tablon-tab:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 .tablon-tab.is-active {
-  border-color: var(--accent);
-  background: color-mix(in srgb, var(--accent) 14%, transparent);
-  color: var(--accent);
+  border-color: var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 500;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+:root[data-mantine-color-scheme="light"] .tablon-tab.is-active {
+  background: #ffffff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .tablon-tab-count {
-  padding: 0.05rem 0.42rem;
-  border-radius: 999px;
-  background: var(--surface-2);
   color: var(--text-muted);
-  font-family: monospace;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-size: 0.75rem;
+  line-height: 16px;
+  font-variant-numeric: tabular-nums;
 }
 
 .tablon-tab.is-active .tablon-tab-count {
-  background: color-mix(in srgb, var(--accent) 20%, transparent);
   color: var(--accent);
+  font-weight: 500;
+}
+
+.tablon-toolbar-meta {
+  display: flex;
+  align-items: center;
+}
+
+.tablon-sync-meta {
+  margin: 0;
+  color: var(--text-muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.75rem;
+  line-height: 16px;
+  font-variant-numeric: tabular-nums;
 }
 
 .tablon-filters {
   display: grid;
-  grid-template-columns: minmax(200px, 1.4fr) repeat(3, minmax(140px, 1fr)) auto;
-  gap: 0.75rem;
-  align-items: end;
+  grid-template-columns: minmax(220px, 1.6fr) repeat(3, minmax(140px, 1fr));
+  gap: 12px;
+  align-items: center;
+}
+
+@media (min-width: 62.01em) {
+  .tablon-filters[data-filtered] {
+    grid-template-columns: minmax(220px, 1.6fr) repeat(3, minmax(140px, 1fr)) auto;
+  }
+}
+
+.tablon-filters .tablon-control-input {
+  height: 36px;
+  min-height: 36px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background-color: var(--surface-2);
+  color: var(--text);
+  font-size: 0.875rem;
+  line-height: 20px;
+  transition:
+    border-color 150ms var(--tablon-ease),
+    background-color 150ms var(--tablon-ease);
+}
+
+:root[data-mantine-color-scheme="light"] .tablon-filters .tablon-control-input {
+  background-color: #ffffff;
+}
+
+.tablon-filters .tablon-control-input::placeholder {
+  color: var(--text-muted);
+  opacity: 1;
+}
+
+.tablon-filters .tablon-control-input:hover {
+  border-color: color-mix(in srgb, var(--text) 24%, var(--border));
+}
+
+.tablon-filters .tablon-control-input:focus,
+.tablon-filters .tablon-control-input:focus-within {
+  border-color: var(--accent);
+  outline: none;
+}
+
+.tablon-filters .tablon-control-section {
+  color: var(--text-muted);
+}
+
+.tablon-control-dropdown[data-position] {
+  padding: 4px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background-color: var(--surface);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.24);
+}
+
+:root[data-mantine-color-scheme="light"] .tablon-control-dropdown[data-position] {
+  background-color: #ffffff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.tablon-control-option[data-combobox-option] {
+  padding: 8px 10px;
+  border-radius: 6px;
+  color: var(--text);
+  font-size: 0.875rem;
+  line-height: 20px;
+  transition: background-color 120ms var(--tablon-ease);
+}
+
+.tablon-control-option[data-combobox-option]:hover,
+.tablon-control-option[data-combobox-option][data-combobox-hovered] {
+  background-color: var(--surface-2);
+}
+
+.tablon-control-option[data-combobox-option][data-combobox-selected] {
+  background-color: color-mix(in srgb, var(--accent) 14%, transparent);
+  color: var(--text);
+  font-weight: 500;
+}
+
+.tablon-reset-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 36px;
+  padding: 0 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-muted);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    border-color 150ms var(--tablon-ease),
+    color 150ms var(--tablon-ease),
+    background-color 150ms var(--tablon-ease),
+    transform 120ms var(--tablon-ease);
+}
+
+.tablon-reset-btn:hover {
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+.tablon-reset-btn:active {
+  transform: scale(0.98);
+}
+
+.tablon-reset-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .tablon-empty-actions {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.75rem;
-  padding: 0 1.1rem 1.25rem;
-}
-
-.tablon-empty-filter {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.85rem;
-  padding: 2.5rem 1.5rem;
-  border: 1px dashed var(--border);
-  border-radius: 14px;
-  background: var(--surface);
-  text-align: center;
-  color: var(--text-muted);
-}
-
-.tablon-sync-meta {
-  margin-top: 2rem;
-  color: var(--text-muted);
-  font-family: monospace;
-  font-size: 0.78rem;
-  text-align: right;
+  gap: 12px;
+  padding: 0 16px 16px;
 }
 
 @media (max-width: 62em) {
@@ -123,12 +257,30 @@
   }
 }
 
-@media (max-width: 48em) {
+@media (max-width: 40em) {
   .tablon-filters {
     grid-template-columns: 1fr;
   }
 
-  .tablon-sync-meta {
-    text-align: left;
+  .tablon-tabs {
+    width: 100%;
+  }
+
+  .tablon-tab {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tablon-tab,
+  .tablon-filters .tablon-control-input,
+  .tablon-control-option[data-combobox-option],
+  .tablon-reset-btn {
+    transition: none;
+  }
+
+  .tablon-reset-btn:active {
+    transform: none;
   }
 }

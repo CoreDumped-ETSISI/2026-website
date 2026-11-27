@@ -2,8 +2,8 @@ import { useMemo, useState } from "react";
 import { Container, Select, SimpleGrid, TextInput } from "@mantine/core";
 import {
   IconBrandGithub,
-  IconRefresh,
-  IconRocket,
+  IconPlus,
+  IconRotateClockwise,
   IconSearch,
 } from "@tabler/icons-react";
 import TerminalTypingTitle from "../../components/Animaciones/TerminalTypingTitle";
@@ -27,6 +27,13 @@ const VIEW_TABS = [
   { id: "join", label: msg("Unirse") },
   { id: "collaborate", label: msg("Colaborar") },
 ];
+
+const SELECT_CLASS_NAMES = {
+  input: "tablon-control-input",
+  section: "tablon-control-section",
+  dropdown: "tablon-control-dropdown",
+  option: "tablon-control-option",
+};
 
 function formatSyncDate(isoString, lang) {
   if (!isoString) return "";
@@ -109,7 +116,7 @@ function Tablon() {
         <div className="tablon-header">
           <p className="lead intro">
             <T>
-              Catálogo abierto de proyectos de Core Dumped sincronizado con GitHub: descubre qué está activo, dónde puedes unirte o en qué colaborar.
+              Proyectos abiertos de hardware, software y datos en Core Dumped, sincronizados desde GitHub
             </T>
           </p>
 
@@ -136,14 +143,14 @@ function Tablon() {
         </div>
 
         {activeItems.length === 0 ? (
-          <Window title="project-catalog.sh" className="glow">
+          <Window title="project-catalog.sh">
             <ul className="terminal-log">
               <li className="is-cmd">
                 <span aria-hidden="true">$</span>
                 gh project item-list 11 --owner CoreDumped-ETSISI
               </li>
               <li className="is-info">
-                <span aria-hidden="true">ℹ</span>
+                <span aria-hidden="true">i</span>
                 {t("El catálogo de proyectos está listo, pero todavía no hay tarjetas publicadas en GitHub.")}
               </li>
               <li className="is-out">
@@ -159,7 +166,7 @@ function Tablon() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <IconRocket size={15} stroke={2} aria-hidden="true" />
+                <IconPlus size={16} stroke={1.5} aria-hidden="true" />
                 <span>{t("Proponer un proyecto")}</span>
               </a>
               <a
@@ -168,7 +175,7 @@ function Tablon() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <IconBrandGithub size={15} stroke={1.9} aria-hidden="true" />
+                <IconBrandGithub size={16} stroke={1.5} aria-hidden="true" />
                 <span>{t("Abrir Project Catalog en GitHub")}</span>
               </a>
             </div>
@@ -176,38 +183,62 @@ function Tablon() {
         ) : (
           <>
             <div className="tablon-toolbar">
-              <div className="tablon-tabs" role="tablist" aria-label={t("Vistas del catálogo")}>
-                {VIEW_TABS.map((tab) => {
-                  const isActive = activeView === tab.id;
-                  return (
-                    <button
-                      key={tab.id}
-                      type="button"
-                      role="tab"
-                      aria-selected={isActive}
-                      className={`tablon-tab ${isActive ? "is-active" : ""}`}
-                      onClick={() => setActiveView(tab.id)}
-                    >
-                      <span>{t(tab.label)}</span>
-                      <span className="tablon-tab-count">{viewCounts[tab.id]}</span>
-                    </button>
-                  );
-                })}
+              <div className="tablon-toolbar-top">
+                <div
+                  className="tablon-tabs"
+                  role="tablist"
+                  aria-label={t("Vistas del catálogo")}
+                >
+                  {VIEW_TABS.map((tab) => {
+                    const isActive = activeView === tab.id;
+                    return (
+                      <button
+                        key={tab.id}
+                        type="button"
+                        role="tab"
+                        aria-selected={isActive}
+                        className={`tablon-tab ${isActive ? "is-active" : ""}`}
+                        onClick={() => setActiveView(tab.id)}
+                      >
+                        <span>{t(tab.label)}</span>
+                        <span className="tablon-tab-count">{viewCounts[tab.id]}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {catalogData?.syncedAt && (
+                  <div className="tablon-toolbar-meta">
+                    <span className="tablon-sync-meta">
+                      {t("Sincronizado")}: {formatSyncDate(catalogData.syncedAt, lang)}
+                    </span>
+                  </div>
+                )}
               </div>
 
-              <div className="tablon-filters">
+              <div
+                className="tablon-filters"
+                data-filtered={hasActiveFilters || undefined}
+              >
                 <TextInput
-                  label={t("Buscar")}
-                  placeholder={t("Nombre, tecnología o líder...")}
-                  leftSection={<IconSearch size={15} stroke={1.8} aria-hidden="true" />}
+                  aria-label={t("Buscar proyectos")}
+                  placeholder={t("Buscar proyectos")}
+                  leftSection={<IconSearch size={16} stroke={1.5} aria-hidden="true" />}
+                  classNames={{
+                    input: "tablon-control-input",
+                    section: "tablon-control-section",
+                  }}
                   value={search}
                   onChange={(e) => setSearch(e.currentTarget.value)}
                 />
 
                 <Select
-                  label={t("Estado")}
-                  placeholder={t("Todos los estados")}
+                  aria-label={t("Estado")}
+                  placeholder={t("Estado")}
                   clearable
+                  checkIconPosition="right"
+                  comboboxProps={{ withinPortal: true, offset: 4 }}
+                  classNames={SELECT_CLASS_NAMES}
                   value={statusFilter}
                   onChange={setStatusFilter}
                   data={STATUS_OPTIONS.map((o) => ({
@@ -217,9 +248,12 @@ function Tablon() {
                 />
 
                 <Select
-                  label={t("Área")}
-                  placeholder={t("Todas las áreas")}
+                  aria-label={t("Área")}
+                  placeholder={t("Área")}
                   clearable
+                  checkIconPosition="right"
+                  comboboxProps={{ withinPortal: true, offset: 4 }}
+                  classNames={SELECT_CLASS_NAMES}
                   value={areaFilter}
                   onChange={setAreaFilter}
                   data={AREA_OPTIONS.map((o) => ({
@@ -229,9 +263,12 @@ function Tablon() {
                 />
 
                 <Select
-                  label={t("Nivel")}
-                  placeholder={t("Todos los niveles")}
+                  aria-label={t("Nivel")}
+                  placeholder={t("Nivel")}
                   clearable
+                  checkIconPosition="right"
+                  comboboxProps={{ withinPortal: true, offset: 4 }}
+                  classNames={SELECT_CLASS_NAMES}
                   value={levelFilter}
                   onChange={setLevelFilter}
                   data={LEVEL_OPTIONS.map((o) => ({
@@ -243,33 +280,37 @@ function Tablon() {
                 {hasActiveFilters && (
                   <button
                     type="button"
-                    className="pill-button"
+                    className="tablon-reset-btn"
                     onClick={resetFilters}
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: "0.35rem",
-                      height: 36,
-                    }}
                   >
-                    <IconRefresh size={14} stroke={1.8} aria-hidden="true" />
-                    <span>{t("Limpiar filtros")}</span>
+                    <IconRotateClockwise size={16} stroke={1.5} aria-hidden="true" />
+                    <span>{t("Limpiar")}</span>
                   </button>
                 )}
               </div>
             </div>
 
             {filteredItems.length === 0 ? (
-              <div className="tablon-empty-filter">
-                <p style={{ margin: 0 }}>
-                  <T>No hay proyectos que coincidan con los filtros seleccionados.</T>
-                </p>
-                <button type="button" className="pill-button" onClick={resetFilters}>
-                  {t("Limpiar filtros")}
-                </button>
-              </div>
+              <Window title="filter.sh" className="compact">
+                <ul className="terminal-log">
+                  <li className="is-info">
+                    <span aria-hidden="true">i</span>
+                    {t("Ningún proyecto coincide con los filtros actuales")}
+                  </li>
+                </ul>
+                <div className="tablon-empty-actions">
+                  <button
+                    type="button"
+                    className="project-cta-secondary"
+                    onClick={resetFilters}
+                  >
+                    <IconRotateClockwise size={16} stroke={1.5} aria-hidden="true" />
+                    <span>{t("Limpiar filtros")}</span>
+                  </button>
+                </div>
+              </Window>
             ) : (
-              <SimpleGrid cols={{ base: 1, sm: 2, lg: 3 }} spacing="lg">
+              <SimpleGrid cols={{ base: 1, sm: 2, lg: 3 }} spacing={16}>
                 {filteredItems.map((project) => (
                   <Proyecto
                     key={project.id}
@@ -280,12 +321,6 @@ function Tablon() {
               </SimpleGrid>
             )}
           </>
-        )}
-
-        {catalogData?.syncedAt && (
-          <p className="tablon-sync-meta">
-            {t("Última sincronización")}: {formatSyncDate(catalogData.syncedAt, lang)}
-          </p>
         )}
 
         <ProyectoModal

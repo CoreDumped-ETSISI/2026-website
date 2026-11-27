@@ -1,10 +1,8 @@
 import { Avatar, Group, Modal } from "@mantine/core";
 import {
+  IconArrowUpRight,
   IconBrandGithub,
   IconCalendar,
-  IconChartBar,
-  IconExternalLink,
-  IconLayersSubtract,
   IconX,
 } from "@tabler/icons-react";
 import { useLang } from "../../../i18n/lang";
@@ -17,6 +15,19 @@ import {
   getStatusMeta,
 } from "./projectMeta";
 import "./Proyecto.css";
+
+function cleanModalText(raw) {
+  if (!raw) return "";
+  return String(raw).replace(/\r\n/g, "\n").replace(/\n{3,}/g, "\n\n").trim();
+}
+
+function parseTeamHandles(teamHandles) {
+  if (!Array.isArray(teamHandles)) return [];
+  return teamHandles
+    .flatMap((entry) => String(entry).split(/[\s,]+/))
+    .map((token) => token.replace(/^@+/, "").trim())
+    .filter(Boolean);
+}
 
 function renderLeadLink(lead) {
   if (!lead) return null;
@@ -44,6 +55,20 @@ function ProyectoModal({ project, opened, onClose }) {
     project.status === "Paused" ? formatReturnDate(project.returnDate, lang) : null;
   const details = project.details ?? {};
 
+  const descriptionText = cleanModalText(details.description);
+  const goalText = cleanModalText(details.goal);
+  const dodText = cleanModalText(details.definitionOfDone);
+  const milestoneText = cleanModalText(details.nextMilestone);
+  const placesText = cleanModalText(details.placesAndProfiles);
+  const howToJoinText = cleanModalText(details.howToJoin);
+
+  const metaParts = [
+    ...(project.areas ?? []).map((area) => t(getAreaLabel(area))),
+    project.level ? t(getLevelLabel(project.level)) : null,
+  ].filter(Boolean);
+
+  const parsedHandles = parseTeamHandles(project.teamHandles);
+
   const teamSummary = (() => {
     const assignees = project.assignees ?? [];
     if (assignees.length > 0) {
@@ -55,17 +80,35 @@ function ProyectoModal({ project, opened, onClose }) {
               href={user.url || `https://github.com/${user.login}`}
               target="_blank"
               rel="noopener noreferrer"
-              style={{ display: "inline-flex", alignItems: "center", gap: "0.35rem" }}
+              className="project-member-link"
             >
-              <Avatar src={user.avatarUrl} alt={user.name || user.login} size={22} radius="xl" />
+              <Avatar
+                src={user.avatarUrl}
+                alt={user.name || user.login}
+                size={20}
+                radius="xl"
+              />
               <span>@{user.login}</span>
             </a>
           ))}
         </Group>
       );
     }
-    if (project.teamHandles?.length > 0) {
-      return <span>{project.teamHandles.join(", ")}</span>;
+    if (parsedHandles.length > 0) {
+      return (
+        <Group gap="sm" wrap="wrap">
+          {parsedHandles.map((handle) => (
+            <a
+              key={handle}
+              href={`https://github.com/${handle}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              @{handle} <span aria-hidden="true">↗</span>
+            </a>
+          ))}
+        </Group>
+      );
     }
     return null;
   })();
@@ -81,105 +124,118 @@ function ProyectoModal({ project, opened, onClose }) {
       withCloseButton={false}
       padding={0}
       radius="md"
-      overlayProps={{ color: "#000", backgroundOpacity: 0.72, blur: 3 }}
-      transitionProps={{ transition: "pop", duration: 180 }}
+      overlayProps={{ color: "#000", backgroundOpacity: 0.72, blur: 2 }}
+      transitionProps={{
+        transition: "fade-up",
+        duration: 180,
+        timingFunction: "cubic-bezier(0.22, 1, 0.36, 1)",
+      }}
       styles={{
         content: { background: "transparent", boxShadow: "none", overflow: "visible" },
         body: { padding: 0 },
       }}
     >
-      <Window title={windowTitle} className="glow">
+      <Window title={windowTitle}>
         <div className="window-content project-modal-scroll">
           <div className="project-modal-header">
-            <div>
-              <Group gap="xs" wrap="wrap">
-                <span className={`project-badge project-badge--${statusMeta.variant}`}>
-                  <span className="project-badge-dot" aria-hidden="true" />
-                  {t(statusMeta.label)}
+            <div className="project-modal-heading">
+              <div className="project-modal-meta-row">
+                <span className={`project-status project-status--${statusMeta.variant}`}>
+                  <span className="project-status-dot" aria-hidden="true" />
+                  <span>{t(statusMeta.label)}</span>
                 </span>
-                <span className={`project-badge project-badge--${opennessMeta.variant}`}>
+                <span className="project-meta-sep" aria-hidden="true">
+                  ·
+                </span>
+                <span
+                  className={`project-openness ${opennessMeta.variant !== "closed" ? "is-open" : ""}`}
+                >
                   {t(opennessMeta.label)}
                 </span>
-                {project.areas?.map((area) => (
-                  <span key={area} className="project-meta-chip">
-                    <IconLayersSubtract size={13} stroke={1.8} aria-hidden="true" />
-                    {t(getAreaLabel(area))}
+                {metaParts.map((part, index) => (
+                  <span key={`${part}-${index}`} className="project-meta-item">
+                    <span className="project-meta-sep" aria-hidden="true">
+                      ·
+                    </span>
+                    <span>{part}</span>
                   </span>
                 ))}
-                {project.level && (
-                  <span className="project-meta-chip">
-                    <IconChartBar size={13} stroke={1.8} aria-hidden="true" />
-                    {t(getLevelLabel(project.level))}
-                  </span>
+                {project.number != null && (
+                  <>
+                    <span className="project-meta-sep" aria-hidden="true">
+                      ·
+                    </span>
+                    <span className="project-issue-id">
+                      #{String(project.number).padStart(2, "0")}
+                    </span>
+                  </>
                 )}
-              </Group>
+              </div>
               <h2 className="project-modal-title">{project.title}</h2>
             </div>
 
             <button
               type="button"
-              className="pill-button"
+              className="project-modal-close"
               onClick={onClose}
               aria-label={t("Cerrar")}
-              style={{ display: "inline-flex", alignItems: "center", gap: "0.25rem" }}
             >
-              <IconX size={14} stroke={2} aria-hidden="true" />
-              <span>{t("Cerrar")}</span>
+              <IconX size={16} stroke={1.5} aria-hidden="true" />
             </button>
           </div>
 
           {returnDateText && (
-            <div className="project-return-banner">
-              <IconCalendar size={14} stroke={1.8} aria-hidden="true" />
+            <div className="project-return-note">
+              <IconCalendar size={16} stroke={1.5} aria-hidden="true" />
               <span>
                 {t("Regreso estimado")}: {returnDateText}
               </span>
             </div>
           )}
 
-          {details.description && (
+          {descriptionText && (
             <div className="project-modal-section">
               <h4>{t("Descripción")}</h4>
-              <p>{details.description}</p>
+              <p>{descriptionText}</p>
             </div>
           )}
 
-          {details.goal && (
+          {goalText && (
             <div className="project-modal-section">
               <h4>{t("Objetivo")}</h4>
-              <p>{details.goal}</p>
+              <p>{goalText}</p>
             </div>
           )}
 
-          {details.definitionOfDone && (
+          {dodText && (
             <div className="project-modal-section">
               <h4>{t("Definición de hecho")}</h4>
-              <p>{details.definitionOfDone}</p>
+              <p>{dodText}</p>
             </div>
           )}
 
-          {details.nextMilestone && (
+          {milestoneText && (
             <div className="project-modal-section">
               <h4>{t("Próximo hito")}</h4>
-              <p>{details.nextMilestone}</p>
+              <p>{milestoneText}</p>
             </div>
           )}
 
-          {details.placesAndProfiles && (
+          {placesText && (
             <div className="project-modal-section">
               <h4>{t("Plazas y perfiles buscados")}</h4>
-              <p>{details.placesAndProfiles}</p>
+              <p>{placesText}</p>
             </div>
           )}
 
-          {details.howToJoin && (
+          {howToJoinText && (
             <div className="project-modal-section">
               <h4>{t("Cómo participar")}</h4>
-              <p>{details.howToJoin}</p>
+              <p>{howToJoinText}</p>
             </div>
           )}
 
-          <ul className="detail-list" style={{ maxWidth: "100%" }}>
+          <ul className="detail-list project-modal-details">
             {project.lead && (
               <li>
                 <strong>{t("Líder")}</strong>
@@ -233,8 +289,8 @@ function ProyectoModal({ project, opened, onClose }) {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <IconExternalLink size={15} stroke={2} aria-hidden="true" />
               <span>{t("Ver ficha en GitHub")}</span>
+              <IconArrowUpRight size={16} stroke={1.5} aria-hidden="true" />
             </a>
 
             {project.repoUrl && (
@@ -244,7 +300,7 @@ function ProyectoModal({ project, opened, onClose }) {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <IconBrandGithub size={15} stroke={1.9} aria-hidden="true" />
+                <IconBrandGithub size={16} stroke={1.5} aria-hidden="true" />
                 <span>{t("Ir al repositorio")}</span>
               </a>
             )}

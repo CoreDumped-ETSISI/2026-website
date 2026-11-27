@@ -10,7 +10,8 @@ export default function Footer() {
                     <Text size="sm">© {new Date().getFullYear()} Core Dumped</Text>
                     <Text size="xs" c="dimmed">
                         <T>Desarrolladores</T>{' '}
-                        <Link to="https://github.com/Hacking-jack">@Hacking-jack</Link>
+                        <Link to="https://github.com/Hacking-jack">@Hacking-jack</Link>,{' '}
+                        <Link to="https://github.com/adriansantor">@adriansantor</Link>
                         &nbsp;<T>y</T>&nbsp;
                         <Link to="https://github.com/Nicowooow">@Nicowooow</Link>
                     </Text>

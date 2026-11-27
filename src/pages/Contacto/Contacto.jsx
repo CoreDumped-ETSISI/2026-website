@@ -50,6 +50,14 @@ const contacts = [
         href: "https://t.me/CoreDumpedUPM/",
         hint: msg("Canal para compartir información sobre las actividades"),
     },
+    {
+        id: "discord",
+        icon: "discord",
+        label: "Discord",
+        value: "Core Dumped",
+        href: "https://discord.gg/ftxTSs4aD4",
+        hint: msg("Comunidad, proyectos y charlas del día a día"),
+    },
 ];
 
 // TODO: el horario 
